@@ -6,13 +6,13 @@
 #    By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/16 11:34:51 by vhazelnu          #+#    #+#              #
-#    Updated: 2019/06/01 11:39:08 by vhazelnu         ###   ########.fr        #
+#    Updated: 2019/06/01 11:43:07 by vhazelnu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .PHONY: clean fclean re
 
-NAME = fillit
+NAME = ft_printf
 
 LIB_FOLDER = ./libft/
 
