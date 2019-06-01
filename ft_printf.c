@@ -6,29 +6,32 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:06:11 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/05/30 13:05:26 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/01 11:25:15 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include "libft.h"
+#include "ft_printf.h"
 
 int		integer(const char *format, va_list valist)
 {
 	int		char_count;
 	int		nbr;
 	char	*integer_string;
+	void	*ptr;
 
 	char_count = 0;
 	if (*format == 'i')
 	{
 		nbr = va_arg(valist, int);
 		integer_string = ft_itoa(nbr);
-		ft_putstr(integer_string);
-		char_count += ft_strlen(integer_string);
 	}
+	else if (*format == 'p')
+	{
+		ptr = va_arg(valist, void *);
+		integer_string = ft_itoa_base((long long int)ptr, 16);
+	}
+	ft_putstr(integer_string);
+	char_count += ft_strlen(integer_string);
 	return (char_count);
 }
 
@@ -76,7 +79,7 @@ int		ft_printf(const char *format, ...)
 				char_count += string(format, valist);
 				format++;
 			}
-			else if (*format == 'i')
+			else if (*format == 'i' || *format == 'p')
 			{
 				char_count += integer(format, valist);
 				format++;
@@ -101,12 +104,16 @@ int		ft_printf(const char *format, ...)
 
 int		main(void)
 {
-	char abc[] = "Hello Vladimir Putin from school";
+	// char abc[] = "Hello Vladimir Putin from school";
 	int ret_origin;
 	int ret_mine;
+	void *ptr;
+	int	a;
 
-	ret_origin = printf("Original       : %s %i\n", abc, 21);
-	ret_mine = ft_printf("Mine           : %s %i\n", abc, 21);
+	a = 10;
+	ptr = &a;
+	ret_origin = printf("Original       : %p\n", ptr);
+	ret_mine = ft_printf("Mine           : %p\n", ptr);
 	printf("Original return: %i\n", ret_origin);
 	ft_printf("Mine return    : %i\n", ret_mine);
 	return (0);
