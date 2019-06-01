@@ -6,7 +6,7 @@
 #    By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/16 11:34:51 by vhazelnu          #+#    #+#              #
-#    Updated: 2019/06/01 11:43:07 by vhazelnu         ###   ########.fr        #
+#    Updated: 2019/06/01 13:52:47 by vhazelnu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = ft_printf
 
 LIB_FOLDER = ./libft/
 
-INCLUDES = -I ./ -I $(LIB_FOLDER)
+INCLUDES = -I $(LIB_FOLDER)
 
 SRC = ft_printf.c ft_itoa_base.c
 
