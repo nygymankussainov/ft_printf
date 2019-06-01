@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:01:49 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/01 14:13:48 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/01 15:02:36 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,38 @@ static int		digit_count(long long int nb, int base)
 	return (i + 1);
 }
 
-char			*ft_itoa_base(long long int nb, int base)
+char			*ft_itoa_base(long long int nb, int base, char c)
 {
 	char	*str_base;
 	char	*result;
 	int		i;
 	int		j;
 
-	str_base = "0123456789abcdef";
+	if (c == 'X')
+		str_base = "0123456789ABCDEF";
+	else
+		str_base = "0123456789abcdef";
 	if (base < 2 || base > 16)
 		return (0);
+	j = 0;
 	if (base == 16)
 	{
-		j = 2;
-		i = digit_count(nb, base) + j;
-		result = (char *)ft_memalloc(sizeof(char) * i + 1);
-		result[0] = '0';
-		result[1] = 'x';
+		if (c == 'p')
+		{
+			j = 2;
+			i = digit_count(nb, base) + j;
+			result = (char *)ft_memalloc(sizeof(char) * i + 1);
+			result[0] = '0';
+			result[1] = 'x';
+		}
+		else if (c == 'x' || c == 'X')
+		{
+			i = digit_count(nb, base) + j;
+			result = (char *)ft_memalloc(sizeof(char) * i + 1);
+		}
 	}
-	if (base == 8)
+	if (base == 8 || base == 10)
 	{
-		j = 0;
 		i = digit_count(nb, base);
 		result = (char *)ft_memalloc(sizeof(char) * i + 1);
 	}

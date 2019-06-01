@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:02:01 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/01 13:50:25 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/01 14:34:38 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 # include "libft.h"
 
 int		ft_printf(const char *format, ...);
-char	*ft_itoa_base(long long int nb, int base);
+char	*ft_itoa_base(long long int nb, int base, char c);
 
 #endif
