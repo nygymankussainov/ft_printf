@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhazelnu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 14:28:47 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/04/21 15:05:49 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/02 11:07:02 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count(int n, int len)
+int			ft_count_digit(int n, int len)
 {
 	while (n / 10)
 	{
@@ -29,7 +29,7 @@ char		*ft_itoa(int n)
 	unsigned int	ui;
 
 	len = n < 0 ? 2 : 1;
-	len = count(n, len);
+	len = ft_count_digit(n, len);
 	ui = n < 0 ? -n : n;
 	if (!(result = ft_memalloc(len + 1)))
 		return (NULL);
