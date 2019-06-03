@@ -6,90 +6,11 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:06:11 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/03 15:40:51 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/03 15:44:39 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int		ft_integer(const char *F, va_list valist)
-{
-	int						char_count;
-	char					*integer_string;
-	void					*ptr;
-	unsigned long long int	nbr;
-
-	char_count = 0;
-	if (*F == 'i' || *F == 'd' ||
-		(*F == 'h' && (*(F + 1) == 'd' || (*(F + 1) == 'i'))))
-	{
-		if (*F == 'h' && (*(F + 1) == 'd' || (*(F + 1) == 'i')))
-			nbr = (short)va_arg(valist, int);
-		else
-			nbr = va_arg(valist, int);
-		integer_string = ft_itoa(nbr);
-	}
-	else if (*F == 'p')
-	{
-		ptr = va_arg(valist, void *);
-		integer_string = ft_itoa_base((long long int)ptr, 16, 'p');
-	}
-	else if (*F == 'o' || *F == 'x' || *F == 'X'
-		|| *F == 'u' || (*F == 'h' && *(F + 1) == 'o'))
-	{
-		if (*F == 'h')
-			nbr = (unsigned short)va_arg(valist, unsigned int);
-		else
-			nbr = va_arg(valist, unsigned int);
-		if (*F == 'o' || (*F == 'h' && *(F + 1) == 'o'))
-			integer_string = ft_itoa_base(nbr, 8, 'o');
-		else if (*F == 'u')
-			integer_string = ft_itoa_base(nbr, 10, 'u');
-		else if (*F == 'x')
-			integer_string = ft_itoa_base(nbr, 16, 'x');
-		else
-			integer_string = ft_itoa_base(nbr, 16, 'X');
-	}
-	ft_putstr(integer_string);
-	char_count += ft_strlen(integer_string);
-	return (char_count);
-}
-
-int		ft_string(const char *F, va_list valist)
-{
-	char	*char_string;
-	char	sym;
-	int		char_count;
-
-	char_count = 0;
-	if (*F == 's')
-	{
-		char_string = va_arg(valist, char *);
-		ft_putstr(char_string);
-		char_count += ft_strlen(char_string);
-	}
-	else if (*F == 'c' || (*F == 'h' && *(F + 1) == 'h' &&
-		(*(F + 2) == 'd' || (*(F + 2) == 'i'))))
-	{
-		sym = (char)va_arg(valist, int);
-		if (*F == 'c')
-		{
-			ft_putchar(sym);
-			char_count++;
-		}
-		else
-		{
-			ft_putnbr(sym);
-			char_count = ft_count_digit(sym, 1);
-		}
-	}
-	else if (*F == '%')
-	{
-		ft_putchar('%');
-		char_count++;
-	}
-	return (char_count);
-}
 
 int		ft_printf(const char *format, ...)
 {
