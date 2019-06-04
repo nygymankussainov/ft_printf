@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:43:45 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/03 15:22:24 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/04 09:31:19 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,12 @@ int		ft_conv_d(const char *format, va_list valist)
 		nbr = va_arg(valist, int);
 	else if (*F == 'h' && *(F + 1) == 'h')
 		nbr = (char)va_arg(valist, int);
-	else
+	else if (*F == 'h')
 		nbr = (short)va_arg(valist, int);
+	else if (*F == 'l' && *(F + 1) == 'l')
+		nbr = (long long int)va_arg(valist, long long int);
+	else
+		nbr = (long int)va_arg(valist, long int);
 	integer_string = ft_itoa(nbr);
 	ft_putstr(integer_string);
 	char_count += ft_strlen(integer_string);

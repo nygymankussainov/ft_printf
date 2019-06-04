@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:01:49 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/01 15:02:36 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/04 11:28:00 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char			*ft_itoa_base(long long int nb, int base, char c)
 	char	*result;
 	int		i;
 	int		j;
+
 
 	if (c == 'X')
 		str_base = "0123456789ABCDEF";

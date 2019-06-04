@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:06:11 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/03 15:44:39 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/04 11:36:00 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,15 @@ int		ft_printf(const char *format, ...)
 			else if (*F == 'c')
 				char_count += ft_conv_c(F, valist);
 			else if (*F == 'd' || *F == 'i' ||
-				(*F == 'h' && (*(F + 1) == 'd' || *(F + 1) == 'i')) ||
-				(*F == 'h' && *(F + 1) == 'h' && (*(F + 2) == 'd' ||
-				*(F + 2) == 'i')))
+				((*F == 'l' || *F == 'h') && (*(F + 1) == 'd' ||
+				*(F + 1) == 'i')) || (((*F == 'l' && *(F + 1) == 'l') ||
+				(*F == 'h' && *(F + 1) == 'h'))
+				&& (*(F + 2) == 'd' || *(F + 2) == 'i')))
 				char_count += ft_conv_d(F, valist);
-			else if (*F == 'o' || (*F == 'h' && *(F + 1) == 'o') ||
-				(*F == 'h' && *(F + 1) == 'h' && *(F + 2) == 'o'))
+			else if (*F == 'o' || ((*F == 'h' ||
+				*F == 'l') && *(F + 1) == 'o') ||
+				(((*F == 'h' && *(F + 1) == 'h') ||
+				(*F == 'l' && *(F + 1) == 'l')) && *(F + 2) == 'o'))
 				char_count += ft_conv_o(F, valist);
 			else if (*F == 'p')
 				char_count += ft_conv_p(F, valist);
@@ -43,17 +46,19 @@ int		ft_printf(const char *format, ...)
 				(*F == 'h' && *(F + 1) == 'h' && (*(F + 2) == 'x'
 				|| *(F + 2) == 'X')))
 				char_count += ft_conv_x(F, valist);
-			else if (*F == 'u' || (*F == 'h' && *(F + 1) == 'u') ||
-				(*F == 'h' && *(F + 1) == 'h' && *(F + 2) == 'u'))
+			else if (*F == 'u' || ((*F == 'h' || *F == 'l')
+				&& *(F + 1) == 'u') || (((*F == 'h' && *(F + 1) == 'h') ||
+				(*F == 'l' && *(F + 1) == 'l')) && *(F + 2) == 'u'))
 				char_count += ft_conv_u(F, valist);
 			else
 			{
 				ft_putchar(*F);
 				char_count += 2;
 			}
-			if (*F == 'h' && *(F + 1) == 'h')
+			if ((*F == 'h' && *(F + 1) == 'h') ||
+				(*F == 'l' && *(F + 1) == 'l'))
 				F += 3;
-			else if (*F == 'h')
+			else if (*F == 'h' || *F == 'l')
 				F += 2;
 			else
 				F++;
@@ -76,17 +81,23 @@ int		main(void)
 	int ret_mine;
 	void *ptr;
 	int	a;
+	long long int lli;
+	unsigned long int	li;
 	unsigned long long int d;
 	char b;
 	short c;
+	unsigned long long int ulli;
 
 	a = 6000000;
 	c = 33761;
 	b = 'a';
 	d = 1846744073709551615;
 	ptr = &a;
-	ret_origin = printf("Original       : %hhx\n", b);
-	ret_mine = ft_printf("Mine           : %hhx\n", b);
+	li = -5147483648;
+	lli = 9223372036854775807;
+	ulli = 446744073709551614;
+	ret_origin = printf("Original       : %hu\n", c);
+	ret_mine = ft_printf("Mine           : %hu\n", c);
 	printf("Original return: %i\n", ret_origin);
 	ft_printf("Mine return    : %i\n", ret_mine);
 
