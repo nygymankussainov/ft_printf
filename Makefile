@@ -6,33 +6,34 @@
 #    By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/16 11:34:51 by vhazelnu          #+#    #+#              #
-#    Updated: 2019/06/03 15:08:22 by vhazelnu         ###   ########.fr        #
+#    Updated: 2019/06/13 17:42:03 by vhazelnu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: clean fclean re
+NAME = libftprintf.a
 
-NAME = ft_printf
+SRCS = ft_printf.c ft_itoa_base.c ft_conv_s.c ft_conv_c.c ft_conv_d.c ft_conv_o.c ft_conv_u.c\
+	ft_putchar.c ft_putstr.c ft_strlen.c ft_memalloc.c ft_bzero.c ft_itoa.c
 
-LIB_FOLDER = ./libft/
+OBJS = ft_printf.o ft_itoa_base.o ft_conv_s.o ft_conv_c.o ft_conv_p.o ft_conv_x.o ft_conv_d.o ft_conv_o.o ft_conv_u.o\
+	ft_putchar.o ft_putstr.o ft_strlen.o ft_memalloc.o ft_bzero.o ft_itoa.o
 
-INCLUDES = -I ./ -I $(LIB_FOLDER)
+CCFL = -Wall -Wextra -Werror
 
-SRC = ft_printf.c ft_itoa_base.c string/ft_conv_s.c string/ft_conv_c.c integer/ft_conv_p.c integer/ft_conv_x.c integer/ft_conv_d.c integer/ft_conv_o.c integer/ft_conv_u.c
+all: $(NAME)
 
-OBJECTS = $(SRC:.c=.o)
+$(NAME): $(OBJS)
+	@ar rc $(NAME) $(OBJS)
 
-LIB = -L $(LIB_FOLDER) -lft
-
-all:
-	@make -C $(LIB_FOLDER)
-	gcc $(SRC) $(LIB) $(INCLUDES) -o $(NAME) -g
+%.o: %.c $(INCLUDES)
+	gcc -Wall -Wextra -Werror -c $<
 
 clean:
-	@make clean -C $(LIB_FOLDER)
+	@rm -f $(OBJS)
 
-fclean:	clean
-	@/bin/rm -f $(NAME)
-	@make fclean -C $(LIB_FOLDER)
+fclean: clean
+	@rm -f $(NAME)
 
-re:	fclean all
+re: fclean all
+
+.PHONY: all clean fclean re

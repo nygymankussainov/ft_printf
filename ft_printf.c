@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 16:06:11 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/04 11:36:00 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/13 17:02:01 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ int		ft_printf(const char *format, ...)
 				char_count += ft_conv_o(F, valist);
 			else if (*F == 'p')
 				char_count += ft_conv_p(F, valist);
-			else if (*F == 'x' || *F == 'X' ||
-				(*F == 'h' && (*(F + 1) == 'x' || *(F + 1) == 'X')) ||
-				(*F == 'h' && *(F + 1) == 'h' && (*(F + 2) == 'x'
-				|| *(F + 2) == 'X')))
+			else if (*F == 'x' || *F == 'X' || ((*F == 'h' || *F == 'l')
+				&& (*(F + 1) == 'x' || *(F + 1) == 'X')) ||
+				(((*F == 'h' && *(F + 1) == 'h') ||
+				(*F == 'l' && *(F + 1) == 'l'))
+				&& (*(F + 2) == 'x' || *(F + 2) == 'X')))
 				char_count += ft_conv_x(F, valist);
 			else if (*F == 'u' || ((*F == 'h' || *F == 'l')
 				&& *(F + 1) == 'u') || (((*F == 'h' && *(F + 1) == 'h') ||
@@ -74,32 +75,31 @@ int		ft_printf(const char *format, ...)
 	return (char_count);
 }
 
-int		main(void)
-{
-	char abc[] = "Hello Vladimir Putin from school";
-	int ret_origin;
-	int ret_mine;
-	void *ptr;
-	int	a;
-	long long int lli;
-	unsigned long int	li;
-	unsigned long long int d;
-	char b;
-	short c;
-	unsigned long long int ulli;
+// int		main(void)
+// {
+// 	int ret_origin;
+// 	int ret_mine;
+// 	void *ptr;
+// 	int	a;
+// 	long long lli;
+// 	unsigned long li;
+// 	unsigned long long d;
+// 	char b;
+// 	short c;
+// 	unsigned long long ulli;
 
-	a = 6000000;
-	c = 33761;
-	b = 'a';
-	d = 1846744073709551615;
-	ptr = &a;
-	li = -5147483648;
-	lli = 9223372036854775807;
-	ulli = 446744073709551614;
-	ret_origin = printf("Original       : %hu\n", c);
-	ret_mine = ft_printf("Mine           : %hu\n", c);
-	printf("Original return: %i\n", ret_origin);
-	ft_printf("Mine return    : %i\n", ret_mine);
+// 	a = 6000000;
+// 	c = 32761;
+// 	b = 'a';
+// 	d = 1846744073709551615;
+// 	ptr = &a;
+// 	li = 5147483648;
+// 	lli = -9223372036854775807;
+// 	ulli = 446744073709551614;
+// 	ret_origin = printf("Original       : %ho\n", c);
+// 	ret_mine = ft_printf("Mine           : %ho\n", c);
+// 	printf("Original return: %i\n", ret_origin);
+// 	ft_printf("Mine return    : %i\n", ret_mine);
 
-	return (0);
-}
+// 	return (0);
+// }

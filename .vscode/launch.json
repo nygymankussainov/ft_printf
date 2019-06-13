@@ -5,7 +5,19 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "(lldb) Launch",
+			"name": "a.out",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/libft/a.out",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": true,
+			"MIMode": "lldb"
+		},
+		{
+			"name": "ft_printf",
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/ft_printf",

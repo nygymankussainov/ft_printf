@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_conv_s.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/02 14:37:07 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/03 14:38:54 by vhazelnu         ###   ########.fr       */
+/*   Created: 2019/04/08 12:31:12 by vhazelnu          #+#    #+#             */
+/*   Updated: 2019/06/13 16:16:31 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_conv_s(const char *format, va_list valist)
+void	ft_bzero(void *s, size_t n)
 {
-	char	*char_string;
-	int		char_count;
+	unsigned char	*str;
+	size_t			i;
 
-	char_count = 0;
-	if (*F == 's')
+	i = 0;
+	str = (unsigned char *)s;
+	while (n > 0)
 	{
-		char_string = va_arg(valist, char *);
-		ft_putstr(char_string);
-		char_count += ft_strlen(char_string);
+		str[i] = '\0';
+		i++;
+		n--;
 	}
-	else if (*F == '%')
-	{
-		ft_putchar('%');
-		char_count++;
-	}
-	return (char_count);
 }

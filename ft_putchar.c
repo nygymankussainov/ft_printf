@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sqrt.c                                          :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deladia <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/02 17:20:04 by deladia           #+#    #+#             */
-/*   Updated: 2019/06/13 10:16:45 by vhazelnu         ###   ########.fr       */
+/*   Created: 2019/04/12 13:08:30 by vhazelnu          #+#    #+#             */
+/*   Updated: 2019/06/13 16:02:01 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_sqrt(int nb)
-{
-	int i;
+#include "ft_printf.h"
 
-	i = 1;
-	if (nb <= 0)
-	{
-		return (0);
-	}
-	while (i * i < nb)
-	{
-		i++;
-	}
-	if (nb % i == 0)
-	{
-		return (i);
-	}
-	return (0);
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
 }

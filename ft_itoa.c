@@ -6,11 +6,11 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 14:28:47 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/05 17:32:10 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/13 16:16:38 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 int			ft_count_digit(long long int n, int len)
 {
