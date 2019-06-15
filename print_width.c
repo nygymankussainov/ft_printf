@@ -1,30 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_conv_p.c                                        :+:      :+:    :+:   */
+/*   print_width.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/02 14:50:18 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/15 17:17:23 by vhazelnu         ###   ########.fr       */
+/*   Created: 2019/06/15 15:46:28 by vhazelnu          #+#    #+#             */
+/*   Updated: 2019/06/15 17:14:05 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_conv_p(const char **format, va_list valist, t_printf s)
+int		get_width(char *str, short sign)
 {
-	int						ret;
-	char					*str;
-	void					*ptr;
+	int width;
 
-	ret = 0;
-	ptr = va_arg(valist, void *);
-	str = ft_itoa_base((long long int)ptr, 16, 'p');
-	ret = ft_strlen(str);
-	if (ret >= s.width)
+	width = 0;
+	str += sign < 0 ? 1 : 0;
+	if (*str >= '0' && *str <= '9')
+		width = ft_atoi(str);
+	return (width);
+}
+
+int		print_width(char *str, t_printf s, int ret)
+{
+	if (s.sign < 0)
 		ft_putstr(str);
-	ret = ret < s.width ? print_width(str, s, ret) : ret;
-	*F += 1;
+	s.width -= ret;
+	ret += s.width;
+	while (s.width--)
+	{
+		if (!s.zero)
+			ft_putchar(' ');
+		else
+			ft_putchar('0');
+	}
+	if (s.sign > 0)
+		ft_putstr(str);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 10:27:31 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/15 10:34:22 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/15 17:09:47 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,26 @@
 
 int		ft_symbol(const char **format, va_list valist, t_printf s)
 {
-	char	*char_string;
+	char	*str;
 	char	sym;
-	int		char_count;
+	int		ret;
 
-	char_count = 0;
+	ret = 0;
 	if (**F == 's')
 	{
-		char_string = va_arg(valist, char *);
-		ft_putstr(char_string);
-		char_count += ft_strlen(char_string);
+		str = va_arg(valist, char *);
+		ret = ft_strlen(str);
+		if (ret >= s.width)
+			ft_putstr(str);
+		ret = ret < s.width ? print_width(str, s, ret) : ret;
 	}
 	else
 	{
 		sym = (char)va_arg(valist, int);
-		ft_putchar(sym);
-		char_count++;
+		if (ret >= s.width)
+			ft_putchar(sym);
+		ret = ret < s.width ? print_width(&sym, s, 1) : ret + 1;
 	}
 	*F += 1;
-	return (char_count);
+	return (ret);
 }
