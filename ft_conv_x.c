@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:53:37 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/15 17:17:37 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/15 19:18:42 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int		ft_conv_x(const char **format, va_list valist, t_printf s)
 		str = ft_uitoa_base(nbr, 16, 'x');
 	else
 		str = ft_uitoa_base(nbr, 16, 'X');
-	ret = ft_strlen(str);
+	ret = s.sign == 2 ? ft_strlen(str) + 1 : ft_strlen(str);
 	if (ret >= s.width)
-		ft_putstr(str);
+		ft_putstr(str, s.sign);
 	ret = ret < s.width ? print_width(str, s, ret) : ret;
 	*F += 1;
 	return (ret);

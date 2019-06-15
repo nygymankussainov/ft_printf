@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:57:32 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/15 16:56:17 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/15 19:44:35 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ t_printf	ft_fill_struct(const char *format, int i)
 	str = ft_strncpy(str, F, i);
 	s.zero = str[0] == '0' ? 1 : 0;
 	s.sign = str[0] == '-' ? -1 : 1;
-	s.width = get_width(str, s.sign);
+	s.sign = str[0] == '+' || str[1] == '+' ? 2 : s.sign;
+	s.width = get_width(str);
 	s.l = fl_length(str, 'l');
 	s.h = fl_length(str, 'h');
 	free(str);
@@ -44,57 +45,57 @@ t_printf	ft_fill_struct(const char *format, int i)
 
 int			ft_conv(const char **format, va_list valist, t_printf s)
 {
-	int		char_count;
+	int		ret;
 
-	char_count = 0;
+	ret = 0;
 	if (ft_strchr("diouxXp", **F) && *F)
-		char_count = ft_number(F, valist, s);
+		ret = ft_number(F, valist, s);
 	else if (ft_strchr("sc", **F) && **F)
-		char_count = ft_symbol(F, valist, s);
+		ret = ft_symbol(F, valist, s);
 	else
 	{
 		ft_putchar(**F);
 		*F += 1;
-		char_count++;
+		ret++;
 	}
-	return (char_count);
+	return (ret);
 }
 
 int			ft_percent(const char **format, va_list valist)
 {
-	int			char_count;
+	int			ret;
 	int			i;
 	t_printf	s;
 
-	char_count = 0;
+	ret = 0;
 	i = 0;
 	*F += 1;
-	while (ft_strchr("-lh0123456789", *(*F + i)) && *(F + i))
+	while (ft_strchr("-+lh0123456789", *(*F + i)) && *(F + i))
 		i++;
 	s = ft_fill_struct(*F, i);
 	*F += i;
-	char_count = ft_conv(F, valist, s);
-	return (char_count);
+	ret = ft_conv(F, valist, s);
+	return (ret);
 }
 
 int			ft_printf(const char *format, ...)
 {
-	int			char_count;
+	int			ret;
 	va_list		valist;
 
 	va_start(valist, F);
-	char_count = 0;
+	ret = 0;
 	while (*F)
 	{
 		if (*F == '%')
-			char_count += ft_percent(&F, valist);
+			ret += ft_percent(&F, valist);
 		else
 		{
 			ft_putchar(*F);
 			F++;
-			char_count++;
+			ret++;
 		}
 	}
 	va_end(valist);
-	return (char_count);
+	return (ret);
 }

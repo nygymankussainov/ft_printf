@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 20:06:51 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/15 13:41:05 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/15 19:13:31 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char					*ft_itoa_base(long long nb, int base, char c);
 char					*ft_uitoa_base(unsigned long long nb, int base, char c);
 int						ft_count_digit(long long int n, int len);
 void					ft_putchar(char c);
-void					ft_putstr(char const *s);
+void					ft_putstr(char const *s, short sign);
 void					ft_putendl(char const *s);
 void					ft_putnbr(int n);
 void					ft_putchar_fd(char c, int fd);
