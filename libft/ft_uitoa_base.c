@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
+/*   ft_uitoa_base.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/01 11:01:49 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/15 10:17:26 by vhazelnu         ###   ########.fr       */
+/*   Created: 2019/06/14 18:14:57 by vhazelnu          #+#    #+#             */
+/*   Updated: 2019/06/14 18:19:14 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-static int		ft_digit_count(long long nb, int base)
+static int		udigit_count(unsigned long long nb, int base)
 {
 	int i;
 
@@ -22,40 +22,22 @@ static int		ft_digit_count(long long nb, int base)
 	return (i + 1);
 }
 
-int				ft_get_result(char **result, long long nb, int base)
-{
-	int		i;
-
-	i = 0;
-	if (base == 8 || base == 10)
-	{
-		i = ft_digit_count(nb, base);
-		*result = (char *)ft_memalloc(sizeof(char) * i + 1);
-	}
-	return (i);
-}
-
-char			*ft_itoa_base(long long nb, int base, char c)
+char			*ft_uitoa_base(unsigned long long nb, int base, char c)
 {
 	char	*str_base;
 	char	*result;
 	int		i;
-	int		j;
 
-	str_base = "0123456789abcdef";
-	j = 0;
-	if (base == 16)
-	{
-		i = ft_digit_count(nb, base) + 2;
-		result = (char *)ft_memalloc(sizeof(char) * (i + 1));
-		result[0] = '0';
-		result[1] = 'x';
-		j = 2;
-	}
+	if (c == 'X')
+		str_base = "0123456789ABCDEF";
 	else
-		i = ft_get_result(&result, nb, base);
+		str_base = "0123456789abcdef";
+	if (base < 2 || base > 16)
+		return (0);
+	i = udigit_count(nb, base);
+	result = (char *)ft_memalloc(sizeof(char) * i + 1);
 	result[i] = '\0';
-	while (i - j > 0)
+	while (i > 0)
 	{
 		result[i - 1] = str_base[nb % base];
 		nb /= base;

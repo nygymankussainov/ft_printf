@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vhazelnu <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/04 12:58:50 by vhazelnu          #+#    #+#              #
-#    Updated: 2019/06/13 10:32:31 by vhazelnu         ###   ########.fr        #
+#    Updated: 2019/06/15 09:57:22 by vhazelnu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC = ft_memmove.c ft_strcmp.c ft_strncpy.c ft_itoa.c ft_memset.c ft_strcpy.c ft
 	  ft_strlcat.c ft_strstr.c ft_isdigit.c ft_memccpy.c ft_putstr_fd.c ft_strlen.c ft_strsub.c ft_islower.c ft_memchr.c \
 	  ft_range.c ft_strmap.c ft_strtrim.c ft_isprint.c ft_memcmp.c ft_strcat.c ft_strmapi.c ft_tolower.c ft_isupper.c \
 	  ft_memcpy.c ft_strchr.c ft_strncat.c ft_toupper.c ft_memdel.c ft_strclr.c ft_strncmp.c get_next_line.c ft_is_negative.c \
-	  ft_sqrt.c ft_iterative_factorial.c ft_iterative_power.c \
+	  ft_sqrt.c ft_iterative_factorial.c ft_iterative_power.c ft_uitoa_base.c\
 
 OBJECTS = $(SRC:.c=.o)
 
