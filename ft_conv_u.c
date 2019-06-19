@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 15:05:38 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/15 19:18:18 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/18 20:38:49 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int				ft_conv_u(const char **format, va_list valist, t_printf s)
 	else
 		nbr = va_arg(valist, unsigned int);
 	str = ft_uitoa_base(nbr, 10, 'u');
-	ret = s.sign == 2 ? ft_strlen(str) + 1 : ft_strlen(str);
+	ret = ft_strlen(str);
 	if (ret >= s.width)
-		ft_putstr(str, s.sign);
+		ft_putstr(str, 0);
 	ret = ret < s.width ? print_width(str, s, ret) : ret;
 	*F += 1;
 	return (ret);

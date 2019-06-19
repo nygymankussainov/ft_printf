@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:57:32 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/15 19:44:35 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/19 11:02:58 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,25 @@ short		fl_length(char *str, char c)
 	return (i);
 }
 
-t_printf	ft_fill_struct(const char *format, int i)
+void		ft_fill_struct(const char *format, int i, t_printf **s)
 {
 	char		*str;
-	t_printf	s;
 
 	str = ft_strnew(i);
 	str = ft_strncpy(str, F, i);
-	s.zero = str[0] == '0' ? 1 : 0;
-	s.sign = str[0] == '-' ? -1 : 1;
-	s.sign = str[0] == '+' || str[1] == '+' ? 2 : s.sign;
-	s.width = get_width(str);
-	s.l = fl_length(str, 'l');
-	s.h = fl_length(str, 'h');
+	i = 0;
+	while (str[i])
+	{
+		(*s)->hash = str[i] == '#' ? 1 : (*s)->hash;
+		(*s)->zero = str[i] == '0' ? 1 : (*s)->zero;
+		(*s)->sign = str[i] == '-' ? -1 : (*s)->sign;
+		(*s)->sign = str[i] == '+' ? 2 : (*s)->sign;
+		i++;
+	}
+	(*s)->width = get_width(str);
+	(*s)->l = fl_length(str, 'l');
+	(*s)->h = fl_length(str, 'h');
 	free(str);
-	return (s);
 }
 
 int			ft_conv(const char **format, va_list valist, t_printf s)
@@ -65,16 +69,20 @@ int			ft_percent(const char **format, va_list valist)
 {
 	int			ret;
 	int			i;
-	t_printf	s;
+	t_printf	*s;
 
+	if (!(s = (t_printf *)ft_memalloc(sizeof(t_printf))))
+		return (0);
 	ret = 0;
 	i = 0;
 	*F += 1;
-	while (ft_strchr("-+lh0123456789", *(*F + i)) && *(F + i))
+	while (ft_strchr("-+#lh0123456789", *(*F + i)) && *(F + i))
 		i++;
-	s = ft_fill_struct(*F, i);
+	if (i)
+		ft_fill_struct(*F, i, &s);
 	*F += i;
-	ret = ft_conv(F, valist, s);
+	ret = ft_conv(F, valist, *s);
+	free(s);
 	return (ret);
 }
 

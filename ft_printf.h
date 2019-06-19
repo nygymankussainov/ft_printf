@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:02:01 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/15 19:44:44 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/18 20:32:35 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_printf
 	int			width;
 	short		zero;
 	short		sign;
+	short		hash;
 }				t_printf;
 
 int				ft_printf(const char *format, ...);
@@ -42,6 +43,5 @@ int				ft_number(const char **format, va_list valist, t_printf s);
 int				ft_symbol(const char **format, va_list valist, t_printf s);
 int				print_width(char *integer_string, t_printf s, int char_count);
 int				get_width(char *str);
-char			*ft_itoa_base(long long nb, int base, char c);
 
 #endif

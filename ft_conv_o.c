@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:51:47 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/15 19:18:05 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/19 10:57:02 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int		ft_conv_o(const char **format, va_list valist, t_printf s)
 		nbr = (unsigned short)va_arg(valist, unsigned int);
 	else
 		nbr = va_arg(valist, unsigned int);
-	str = ft_itoa_base(nbr, 8, 'o');
-	ret = s.sign == 2 ? ft_strlen(str) + 1 : ft_strlen(str);
+	str = ft_itoa_base(nbr, 8);
+	ret = s.hash ? ft_strlen(str) + 1 : ft_strlen(str);
 	if (ret >= s.width)
-		ft_putstr(str, s.sign);
+		ft_putstr(str, s.hash);
 	ret = ret < s.width ? print_width(str, s, ret) : ret;
 	*F += 1;
 	return (ret);

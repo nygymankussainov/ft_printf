@@ -6,11 +6,11 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:01:49 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/15 10:17:26 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/18 19:55:32 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 static int		ft_digit_count(long long nb, int base)
 {
@@ -35,7 +35,7 @@ int				ft_get_result(char **result, long long nb, int base)
 	return (i);
 }
 
-char			*ft_itoa_base(long long nb, int base, char c)
+char			*ft_itoa_base(long long nb, int base)
 {
 	char	*str_base;
 	char	*result;
