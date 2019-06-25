@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 20:06:51 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/25 11:35:45 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/25 16:06:39 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int						ft_iterative_factorial(int nb);
 void					ft_is_negative(int n);
 long double				ft_power(long double n, long double p);
 void					ft_swap(int *a, int *b);
+void					ft_swap_str(char **s1, char **s2);
 char					*ft_revstr(char *str);
 
 #endif
