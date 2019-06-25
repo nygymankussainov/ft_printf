@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_power.c                                         :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/24 15:13:20 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/25 16:58:20 by vhazelnu         ###   ########.fr       */
+/*   Created: 2019/06/25 18:35:16 by vhazelnu          #+#    #+#             */
+/*   Updated: 2019/06/25 20:04:06 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
 
-size_t	ft_power(int n, int p)
+void	*ft_realloc(void *ptr, size_t size)
 {
-	size_t	result;
+	char	*newptr;
 
-	result = 1;
-	if (p < 0)
-		return (0);
-	while (p > 0)
+	if (!size && ptr)
 	{
-		result *= n;
-		p--;
+		if (!(newptr = (char *)ft_memalloc(1)))
+			return (NULL);
+		ft_memdel(&ptr);
+		return (newptr);
 	}
-	return (result);
+	if (!(newptr = (char *)ft_memalloc(size)))
+		return (NULL);
+	if (ptr)
+	{
+		ft_memcpy(newptr, ptr, size);
+		ft_memdel(&ptr);
+	}
+	newptr[size - 1] = '0';
+	return (newptr);
 }

@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:02:01 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/21 19:09:49 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/25 18:14:42 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ int						ft_number(const char **format, va_list valist, t_printf s);
 int						ft_symbol(const char **format, va_list valist, t_printf s);
 int						print_width(char *integer_string, t_printf s, int char_count);
 int						get_width(char *str);
+char					*long_arithm(char *s1, char *s2);
 
 #endif

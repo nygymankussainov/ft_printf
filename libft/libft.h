@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 20:06:51 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/25 16:06:39 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/25 18:37:11 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,23 @@
 # include <sys/uio.h>
 # include <unistd.h>
 # include <fcntl.h>
+
+typedef struct			s_list
+{
+	void				*content;
+	size_t				content_size;
+	struct s_list		*next;
+}						t_list;
+
+typedef struct			s_gnl_list
+{
+	int					fd;
+	int					nbytes;
+	char				*str;
+	char				*temp;
+	struct s_gnl_list	*prev;
+	struct s_gnl_list	*next;
+}						t_gnl_list;
 
 void					*ft_memset(void *b, int c, size_t len);
 void					ft_bzero(void *s, size_t n);
@@ -69,10 +86,10 @@ char					*ft_strsub(char const *s, unsigned int start, size_t len);
 char					*ft_strjoin(char const *s1, char const *s2);
 char					*ft_strtrim(char const *s);
 char					**ft_strsplit(char const *s, char c);
-char					*ft_itoa(long long int n);
+char					*ft_itoa(unsigned long long n);
 char					*ft_itoa_base(long long nb, int base);
 char					*ft_uitoa_base(unsigned long long nb, int base, char c);
-int						ft_count_digit(long long int n, int len);
+int						ft_count_digit(unsigned long long int n, int len);
 void					ft_putchar(char c);
 void					ft_putstr(char const *s, short sign);
 void					ft_putendl(char const *s);
@@ -81,23 +98,6 @@ void					ft_putchar_fd(char c, int fd);
 void					ft_putstr_fd(char const *s, int fd);
 void					ft_putendl_fd(char const *s, int fd);
 void					ft_putnbr_fd(int n, int fd);
-
-typedef struct			s_list
-{
-	void				*content;
-	size_t				content_size;
-	struct s_list		*next;
-}						t_list;
-
-typedef struct			s_gnl_list
-{
-	int					fd;
-	int					nbytes;
-	char				*str;
-	char				*temp;
-	struct s_gnl_list	*prev;
-	struct s_gnl_list	*next;
-}						t_gnl_list;
 
 int						get_next_line(const int fd, char **line);
 
@@ -117,9 +117,10 @@ int						ft_sqrt(int nb);
 int						ft_iterative_power(int nb, int power);
 int						ft_iterative_factorial(int nb);
 void					ft_is_negative(int n);
-long double				ft_power(long double n, long double p);
+size_t					ft_power(int n, int p);
 void					ft_swap(int *a, int *b);
 void					ft_swap_str(char **s1, char **s2);
 char					*ft_revstr(char *str);
+void					*ft_realloc(void *ptr, size_t size);
 
 #endif
