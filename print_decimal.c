@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 09:56:52 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/07 15:47:10 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/07 16:44:50 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	print_decimal(char **mant, int exp_i)
 {
 	char	*res;
 	char	*tmp;
+	double	db;
+	int		i;
 
 	res = ft_itoa(ft_power(5, -exp_i));
 	exp_i--;
@@ -56,20 +58,21 @@ void	print_decimal(char **mant, int exp_i)
 			*mant += 1;
 		else if (**mant == '1')
 		{
-			tmp = ft_itoa(ft_power(5, -exp_i));
-			if (ft_strlen(tmp) == ft_strlen(res))
-				res = longadd(res, tmp);
-			else
+			i = 0;
+			db = ft_power_db(2, exp_i);
+			while (!(int)db)
 			{
-				while (ft_strlen(tmp) != ft_strlen(res))
-				{
-					if (ft_strlen(tmp) > ft_strlen(res))
-						res = ft_realloc(res, ft_strlen(res) + 1);
-					else
-						tmp = ft_realloc(tmp, ft_strlen(tmp) + 1);
-				}
-				res = longadd(res, tmp);
+				db *= 10;
+				i++;
 			}
+			tmp = ft_itoa(ft_power(5, -exp_i));
+			if (ft_strlen(res) <= ft_strlen(tmp))
+				while (ft_strlen(res) != (ft_strlen(tmp) + i - 1))
+					res = ft_realloc(res, ft_strlen(res) + 1);
+			else if (ft_strlen(res) > ft_strlen(tmp))
+				while ((ft_strlen(tmp) + i - 1) != ft_strlen(res))
+					res = ft_realloc(res, ft_strlen(res) + 1);
+			res = longadd(res, tmp);
 			*mant += 1;
 		}
 		exp_i--;
