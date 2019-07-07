@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 09:56:52 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/07 11:46:15 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/07 15:47:10 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*print_decimal_2(char *res, char **mant, int exp_i)
 			tmp1 = (char *)ft_memalloc(sizeof(char) * (ft_strlen(tmp) + 1));
 			tmp1[ft_strlen(tmp)] = '\0';
 			tmp1 = ft_strcpy(tmp1, tmp);
+			tmp1 = longmulti(tmp1, res, c);
 			while (ft_strlen(tmp1) != ft_strlen(res))
 			{
 				if (ft_strlen(tmp1) > ft_strlen(res))
@@ -48,6 +49,7 @@ void	print_decimal(char **mant, int exp_i)
 	char	*tmp;
 
 	res = ft_itoa(ft_power(5, -exp_i));
+	exp_i--;
 	while (**mant && -exp_i <= 24)
 	{
 		if (**mant == '0')

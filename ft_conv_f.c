@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 15:12:15 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/07 10:46:59 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/07 15:29:52 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,7 @@ int		print_integer(char *binary, char *exp, int exp_i, char **mant)
 	*mant = ft_strncpy(*mant, binary + 12, 52);
 	exp_i = ft_atoi_base(exp, 2) - 1023;
 	if (exp_i < 0)
-	{
 		write(1, "0.", 2);
-		exp_i--;
-	}
 	else
 		exp_i = print_integer_2(exp_i, mant);
 	return (exp_i);

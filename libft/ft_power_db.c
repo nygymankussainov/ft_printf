@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_power.c                                         :+:      :+:    :+:   */
+/*   ft_power_db.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/24 15:13:20 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/07 15:31:32 by vhazelnu         ###   ########.fr       */
+/*   Created: 2019/07/07 15:30:32 by vhazelnu          #+#    #+#             */
+/*   Updated: 2019/07/07 15:46:15 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_power(int n, int p)
+double	ft_power_db(double n, int p)
 {
-	size_t	result;
+	double	result;
 
 	result = 1;
 	if (p < 0)
-		return (0);
+	{
+		while (p < 0)
+		{
+			result *= 1 / n;
+			p++;
+		}
+		return (result);
+	}
 	while (p > 0)
 	{
 		result *= n;
