@@ -6,11 +6,11 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 18:35:16 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/25 20:04:06 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/06/27 16:07:58 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/libft.h"
 
 void	*ft_realloc(void *ptr, size_t size)
 {
@@ -27,9 +27,10 @@ void	*ft_realloc(void *ptr, size_t size)
 		return (NULL);
 	if (ptr)
 	{
-		ft_memcpy(newptr, ptr, size);
+		ft_memcpy(newptr, (char *)ptr, size);
 		ft_memdel(&ptr);
 	}
 	newptr[size - 1] = '0';
+	newptr[size] = '\0';
 	return (newptr);
 }

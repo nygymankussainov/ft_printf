@@ -75,7 +75,7 @@ int		main()
 			{
 				res = ft_power(2, exp_i);
 				tmp_str = ft_itoa(res);
-				res_str = long_arithm(res_str, tmp_str);
+				res_str = longadd(res_str, tmp_str);
 				i++;
 			}
 			exp_i--;
@@ -94,11 +94,12 @@ int		main()
 			tmp = ft_power(5, -exp_i);
 			tmp_str = ft_itoa(tmp);
 			if (ft_strlen(tmp_str) == ft_strlen(res_str))
-				res_str = long_arithm(res_str, tmp_str);
+				res_str = longadd(res_str, tmp_str);
 			else
 			{
-                res_str = ft_realloc(res_str, ft_strlen(tmp_str));
-				res_str = long_arithm(res_str, tmp_str);
+                while (ft_strlen(tmp_str) != ft_strlen(res_str))
+                   res_str = ft_realloc(res_str, ft_strlen(res_str) + 1);
+				res_str = longadd(res_str, tmp_str);
 			}
 			i++;
 		}

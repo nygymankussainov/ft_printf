@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:02:01 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/25 18:14:42 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/07 10:17:18 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,37 +20,43 @@
 # include <stdlib.h>
 # include "libft/libft.h"
 
-typedef union			u_un
+typedef struct		s_f
 {
-	double				d;
-	int					sign : 1;
-	unsigned int		exponent : 11;
-	long				mantissa : 52;
-}						t_un;
+	double			db;
+	__int64_t		nb;
+	char			*binary;
+	char			*exp;
+	char			*mant;
+	int				exp_i;
+	int				mant_i;
+}					t_f;
 
-typedef struct			s_printf
+typedef struct		s_printf
 {
-	char				conv;
-	short				h;
-	short				l;
-	int					width;
-	short				zero;
-	short				sign;
-	short				hash;
-}						t_printf;
+	char			conv;
+	short			h;
+	short			l;
+	int				width;
+	short			zero;
+	short			sign;
+	short			hash;
+}					t_printf;
 
-int						ft_printf(const char *format, ...);
-int						ft_conv_s(const char **format, va_list valist, t_printf s);
-int						ft_conv_c(const char **format, va_list valist, t_printf s);
-int						ft_conv_o(const char **format, va_list valist, t_printf s);
-int						ft_conv_p(const char **format, va_list valist, t_printf s);
-int						ft_conv_x(const char **format, va_list valist, t_printf s);
-int						ft_conv_d(const char **format, va_list valist, t_printf s);
-int						ft_conv_u(const char **format, va_list valist, t_printf s);
-int						ft_number(const char **format, va_list valist, t_printf s);
-int						ft_symbol(const char **format, va_list valist, t_printf s);
-int						print_width(char *integer_string, t_printf s, int char_count);
-int						get_width(char *str);
-char					*long_arithm(char *s1, char *s2);
+int					ft_printf(const char *format, ...);
+int					ft_conv_s(const char **format, va_list valist, t_printf s);
+int					ft_conv_c(const char **format, va_list valist, t_printf s);
+int					ft_conv_o(const char **format, va_list valist, t_printf s);
+int					ft_conv_p(const char **format, va_list valist, t_printf s);
+int					ft_conv_x(const char **format, va_list valist, t_printf s);
+int					ft_conv_d(const char **format, va_list valist, t_printf s);
+int					ft_conv_u(const char **format, va_list valist, t_printf s);
+int					ft_conv_f(const char **format, va_list valist, t_printf s);
+int					ft_number(const char **format, va_list valist, t_printf s);
+int					ft_symbol(const char **format, va_list valist, t_printf s);
+int					print_width(char *integer_string, t_printf s, int char_count);
+void				print_decimal(char **mant, int exp_i);
+int					get_width(char *str);
+char				*longadd(char *s1, char *s2);
+char				*longmulti(const char *a, const char *b, char *c);
 
 #endif

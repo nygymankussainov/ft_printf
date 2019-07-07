@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   long_arithm.c                                      :+:      :+:    :+:   */
+/*   longadd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 16:17:57 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/26 16:31:54 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/06 14:14:51 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ char	*column_add(char *s1, char *s2, int l1, int l2)
 
 	i = 0;
 	rem = 0;
-	result = (char *)ft_memalloc(sizeof(char) * (l2 + 1));
+	if (!(result = (char *)ft_memalloc(sizeof(char) * (l2 + 1))))
+		return (NULL);
+    result[l2] = '\0';
 	while (i < l1)
 	{
 		sum = ((s1[i] - '0') + (s2[i] - '0')) + rem;
@@ -45,7 +47,7 @@ char	*column_add(char *s1, char *s2, int l1, int l2)
 	return (result);
 }
 
-char	*long_arithm(char *s1, char *s2)
+char	*longadd(char *s1, char *s2)
 {
 	int		l1;
 	int		l2;

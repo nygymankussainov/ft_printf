@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:57:32 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/23 16:18:08 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:36:51 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int			ft_conv(const char **format, va_list valist, t_printf s)
 	int		ret;
 
 	ret = 0;
-	if (ft_strchr("diouxXp", **F) && *F)
+	if (ft_strchr("diouxXpf", **F) && *F)
 		ret = ft_number(F, valist, s);
 	else if (ft_strchr("sc", **F) && **F)
 		ret = ft_symbol(F, valist, s);
