@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 09:56:52 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/08 11:37:15 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/08 13:43:39 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*print_decimal_2(char *res, char **mant, int exp_i)
 	char		*tmp1;
 	int			i;
 	long double	db;
+	int			j;
+	int			k;
 
 	tmp = ft_itoa(ft_power(5, 24));
 	while (**mant)
@@ -33,17 +35,26 @@ char	*print_decimal_2(char *res, char **mant, int exp_i)
 				db *= 10;
 				i++;
 			}
-			if (!(tmp1 = (char *)ft_memalloc(sizeof(char) * (ft_strlen(tmp) + 1))))
+			j = ft_strlen(tmp);
+			k = ft_strlen(res);
+			if (!(tmp1 = (char *)ft_memalloc(sizeof(char) * (j + 1))))
 				return (NULL);
-			tmp1[ft_strlen(tmp)] = '\0';
+			tmp1[j] = '\0';
 			tmp1 = ft_strcpy(tmp1, tmp);
-			if (ft_strlen(res) <= ft_strlen(tmp1))
-				while (ft_strlen(res) != (ft_strlen(tmp1) + i - 1))
-					res = ft_realloc(res, ft_strlen(res) + 1);
-			else if (ft_strlen(res) > ft_strlen(tmp1))
-				while ((ft_strlen(tmp1) + i - 1) != ft_strlen(res))
-					res = ft_realloc(res, ft_strlen(res) + 1);
+			if (k <= j)
+				while (k != (j + i - 1))
+				{
+					res = ft_realloc(res, k + 1);
+					k++;
+				}
+			else if (k > j)
+				while ((j + i - 1) != k)
+				{
+					res = ft_realloc(res, k + 1);
+					k++;
+				}
 			res = longadd(res, tmp1);
+			free(tmp1);
 		}
 		*mant += 1;
 		exp_i--;
@@ -57,6 +68,8 @@ void	print_decimal(char **mant, int exp_i)
 	char		*tmp;
 	long double	db;
 	int			i;
+	int			j;
+	int			k;
 
 	res = ft_itoa(ft_power(5, -exp_i));
 	exp_i--;
@@ -74,12 +87,20 @@ void	print_decimal(char **mant, int exp_i)
 				i++;
 			}
 			tmp = ft_itoa(ft_power(5, -exp_i));
-			if (ft_strlen(res) <= ft_strlen(tmp))
-				while (ft_strlen(res) != (ft_strlen(tmp) + i - 1))
-					res = ft_realloc(res, ft_strlen(res) + 1);
-			else if (ft_strlen(res) > ft_strlen(tmp))
-				while ((ft_strlen(tmp) + i - 1) != ft_strlen(res))
-					res = ft_realloc(res, ft_strlen(res) + 1);
+			j = ft_strlen(tmp);
+			k = ft_strlen(res);
+			if (k <= j)
+				while (k != (j + i - 1))
+				{
+					res = ft_realloc(res, k + 1);
+					k++;
+				}
+			else if (k > j)
+				while ((j + i - 1) != k)
+				{
+					res = ft_realloc(res, k + 1);
+					k++;
+				}
 			res = longadd(res, tmp);
 			*mant += 1;
 		}
