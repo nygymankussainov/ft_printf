@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 09:56:52 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/07 16:44:50 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/08 11:37:15 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 char	*print_decimal_2(char *res, char **mant, int exp_i)
 {
-	char	*c;
-	char	*tmp;
-	char	*tmp1;
+	char		*c;
+	char		*tmp;
+	char		*tmp1;
+	int			i;
+	long double	db;
 
 	tmp = ft_itoa(ft_power(5, 24));
 	while (**mant)
@@ -24,18 +26,24 @@ char	*print_decimal_2(char *res, char **mant, int exp_i)
 		tmp = longmulti(tmp, "5", c);
 		if (**mant == '1')
 		{
-			tmp1 = (char *)ft_memalloc(sizeof(char) * (ft_strlen(tmp) + 1));
+			i = 0;
+			db = ft_power_db(2, exp_i);
+			while (!(int)db)
+			{
+				db *= 10;
+				i++;
+			}
+			if (!(tmp1 = (char *)ft_memalloc(sizeof(char) * (ft_strlen(tmp) + 1))))
+				return (NULL);
 			tmp1[ft_strlen(tmp)] = '\0';
 			tmp1 = ft_strcpy(tmp1, tmp);
-			tmp1 = longmulti(tmp1, res, c);
-			while (ft_strlen(tmp1) != ft_strlen(res))
-			{
-				if (ft_strlen(tmp1) > ft_strlen(res))
+			if (ft_strlen(res) <= ft_strlen(tmp1))
+				while (ft_strlen(res) != (ft_strlen(tmp1) + i - 1))
 					res = ft_realloc(res, ft_strlen(res) + 1);
-				else
-					tmp1 = ft_realloc(tmp1, ft_strlen(tmp1) + 1);
-			}
-			res = longadd(tmp1, res);
+			else if (ft_strlen(res) > ft_strlen(tmp1))
+				while ((ft_strlen(tmp1) + i - 1) != ft_strlen(res))
+					res = ft_realloc(res, ft_strlen(res) + 1);
+			res = longadd(res, tmp1);
 		}
 		*mant += 1;
 		exp_i--;
@@ -45,10 +53,10 @@ char	*print_decimal_2(char *res, char **mant, int exp_i)
 
 void	print_decimal(char **mant, int exp_i)
 {
-	char	*res;
-	char	*tmp;
-	double	db;
-	int		i;
+	char		*res;
+	char		*tmp;
+	long double	db;
+	int			i;
 
 	res = ft_itoa(ft_power(5, -exp_i));
 	exp_i--;
