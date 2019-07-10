@@ -6,15 +6,15 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 15:13:20 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/07 15:31:32 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/10 13:57:00 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_power(int n, int p)
+unsigned long long	ft_power(unsigned long long n, int p)
 {
-	size_t	result;
+	unsigned long long	result;
 
 	result = 1;
 	if (p < 0)
