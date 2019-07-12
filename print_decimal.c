@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 09:56:52 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/10 14:45:35 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/12 13:52:17 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	print_decimal(char *mant, int exp_i, short isint)
 {
 	char		*res;
 	char		*tmp;
+	char		*c;
 	long double	db;
 	int			i;
 	int			k;
@@ -61,22 +62,34 @@ void	print_decimal(char *mant, int exp_i, short isint)
 	char		*tmptmp;
 
 	i = -exp_i;
-	while (*mant != '\0')
+	if (!*mant)
+	{
+		write(1, "0", 1);
+		return ;
+	}
+	while (*mant)
 	{
 		i++;
 		mant++;
 	}
-	while (*mant != '1')
+	while (*mant != '1' && i + exp_i)
 	{
 		i--;
 		mant--;
 	}
+	// if (!*mant)
+	// {
+	// 	write(1, "0", 1);
+	// 	return ;
+	// }
 	res = (char *)ft_memalloc(sizeof(char) * (i + 1));
+	ft_bzero(res, i);
 	res[i + 1] = '\0';
 	tmp = (char *)ft_memalloc(sizeof(char) * (i + 1));
+	ft_bzero(tmp, i);
 	tmp[i + 1] = '\0';
 	mant = mant - (i + exp_i);
-	if (isint)
+	if (isint && *mant)
 	{
 		while (*mant != '1')
 		{
@@ -85,7 +98,18 @@ void	print_decimal(char *mant, int exp_i, short isint)
 		}
 		mant++;
 	}
-	restmp = ft_itoa(ft_power(5, -exp_i));
+	if (-exp_i > 27)
+	{
+		i = 27;
+		restmp = ft_itoa(ft_power(5, 27));
+		while (-exp_i > i)
+		{
+			restmp = longmulti(restmp, "5", c);
+			i++;
+		}
+	}
+	else
+		restmp = ft_itoa(ft_power(5, -exp_i));
 	i = 0;
 	j = ft_strlen(restmp);
 	while (*restmp)

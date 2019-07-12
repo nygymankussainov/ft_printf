@@ -6,11 +6,11 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 18:35:16 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/27 16:07:58 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/11 15:30:40 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "libft.h"
 
 void	*ft_realloc(void *ptr, size_t size)
 {

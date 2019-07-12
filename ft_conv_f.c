@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 15:12:15 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/10 14:50:02 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/12 13:01:31 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,45 @@ int		print_integer_2(int exp_i, char **mant)
 {
 	char	*res;
 	char	*tmp;
+	char	*c;
+	char	*tmpres;
+	int		i;
 
-	res = ft_itoa(ft_power(2, exp_i));
-	exp_i--;
-	while (exp_i >= 0)
+	i = 63;
+	if (exp_i >= 64)
 	{
-		if (**mant == '1')
-		{
-			tmp = ft_itoa(ft_power(2, exp_i));
-			res = longadd(res, tmp);
-		}
-		*mant += 1;
+		res = ft_itoa(ft_power(2, i));
+		while (i++ < exp_i)
+			res = longmulti(res, "2", c);
+		i = 63;
+		tmpres = ft_itoa(ft_power(2, i));
+		while (i++ < exp_i)
+			tmpres = longmulti(tmpres, "2", c);
 		exp_i--;
+		while (**mant && exp_i >= 0)
+		{
+			tmp = longdiv(tmpres, 2);
+			tmpres = longdiv(tmpres, 2);
+			if (**mant == '1')
+				res = longadd(res, tmp);
+			*mant += 1;
+			exp_i--;
+		}
+	}
+	else
+	{
+		res = ft_itoa(ft_power(2, exp_i));
+		exp_i--;
+		while (**mant && exp_i >= 0)
+		{
+			if (**mant == '1')
+			{
+				tmp = ft_itoa(ft_power(2, exp_i));
+				res = longadd(res, tmp);
+			}
+			*mant += 1;
+			exp_i--;
+		}
 	}
 	ft_putstr(res, 0);
 	write(1, ".", 1);

@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:02:01 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/10 14:46:31 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/12 10:34:34 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,11 @@ int					ft_conv_u(const char **format, va_list valist, t_printf s);
 int					ft_conv_f(const char **format, va_list valist, t_printf s);
 int					ft_number(const char **format, va_list valist, t_printf s);
 int					ft_symbol(const char **format, va_list valist, t_printf s);
-int					print_width(char *integer_string, t_printf s, int char_count);
+int					print_width(char *str, t_printf s, int ret);
 void				print_decimal(char *mant, int exp_i, short isint);
 int					get_width(char *str);
 char				*longadd(char *s1, char *s2);
 char				*longmulti(const char *a, const char *b, char *c);
+char				*longdiv(char *number, int divisor);
 
 #endif

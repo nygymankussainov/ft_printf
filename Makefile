@@ -6,7 +6,7 @@
 #    By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/16 11:34:51 by vhazelnu          #+#    #+#              #
-#    Updated: 2019/07/07 09:57:40 by vhazelnu         ###   ########.fr        #
+#    Updated: 2019/07/11 16:40:34 by vhazelnu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LIB = -L libft/ -lft
 INCLUDES = -I ./includes -I libft/includes
 
 SRCS = ft_symbol.c ft_printf.c ft_number.c ft_conv_f.c ft_conv_x.c ft_conv_d.c ft_conv_p.c ft_conv_o.c ft_conv_u.c print_width.c main.c \
-		ft_realloc.c longadd.c longmulti.c print_decimal.c
+		longadd.c longmulti.c print_decimal.c longdiv.c
 
 OBJS = $(SRCS:.c=.o)
 

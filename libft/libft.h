@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 20:06:51 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/10 13:58:29 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/12 12:56:05 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct			s_gnl_list
 
 void					*ft_memset(void *b, int c, size_t len);
 void					ft_bzero(void *s, size_t n);
+void					ft_bzero_null(void *s, size_t n);
 void					*ft_memcpy(void *dst, const void *src, size_t n);
 void					*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void					*ft_memmove(void *dst, const void *src, size_t len);
