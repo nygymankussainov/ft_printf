@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 16:17:57 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/12 12:42:24 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/12 15:53:35 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	*column_add(char *s1, char *s2, int l1, int l2)
 	int		rem;
 	int		sum;
 	char	*result;
-	int		j;
 
 	i = 0;
 	rem = 0;
@@ -27,32 +26,19 @@ char	*column_add(char *s1, char *s2, int l1, int l2)
     result[l2] = '\0';
 	while (i < l1)
 	{
-		sum = ((*s1 - '0') + (*s2 - '0')) + rem;
-		*result = (sum % 10) + '0';
+		sum = ((s1[i] - '0') + (s2[i] - '0')) + rem;
+		result[i++] = (sum % 10) + '0';
 		rem = sum / 10;
-		i++;
-		if (i == 307)
-			j = 1;
-		s1++;
-		s2++;
-		result++;
 	}
 	i = l1;
 	while (i < l2)
 	{
-		sum = (*s2 - '0') + rem;
-		*result = (sum % 10) + '0';
+		sum = (s2[i] - '0') + rem;
+		result[i++] = (sum % 10) + '0';
 		rem = sum / 10;
-		i++;
-		s2++;
-		result++;
 	}
-	result -= i;
-	if (rem)
-	{
-		result = ft_realloc(result, l2 + 1);
-		result[l2] = rem + '0';
-	}
+	result = rem ? ft_realloc(result, l2 + 1) : result;
+	result[l2] = rem ? rem + '0' : result[l2];
 	return (result);
 }
 
