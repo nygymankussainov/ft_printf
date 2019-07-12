@@ -9,3 +9,4 @@ pft/
 main.c
 **.gch
 a.out
+ft_printf
