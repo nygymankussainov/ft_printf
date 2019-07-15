@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 13:19:49 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/07 10:43:10 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/15 14:51:28 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*longmulti(const char *a, const char *b, char *c)
 	int la;
 	int lb;
 
-	c = (char *)ft_memalloc(sizeof(char) * 1024);
+	c = (char *)ft_memalloc(sizeof(char) * 16382);
 	if (a[0] == '0' || b[0] == '0')
 	{
 		c[0] = '0';

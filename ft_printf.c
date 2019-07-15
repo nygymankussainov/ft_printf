@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:57:32 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/06 16:36:51 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/15 10:18:42 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void		ft_fill_struct(const char *format, int i, t_printf **s)
 		(*s)->zero = str[i] == '0' ? 1 : (*s)->zero;
 		(*s)->sign = str[i] == '-' ? -1 : (*s)->sign;
 		(*s)->sign = str[i] == '+' ? 2 : (*s)->sign;
+		(*s)->bigl = str[i] == 'L' ? 1 : (*s)->bigl;
 		i++;
 	}
 	(*s)->width = get_width(str);
@@ -76,7 +77,7 @@ int			ft_percent(const char **format, va_list valist)
 	ret = 0;
 	i = 0;
 	*F += 1;
-	while (ft_strchr("-+#lh0123456789", *(*F + i)) && *(F + i))
+	while (ft_strchr("-+#lLh0123456789", *(*F + i)) && *(F + i))
 		i++;
 	if (i)
 		ft_fill_struct(*F, i, &s);

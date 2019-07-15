@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:02:01 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/12 10:34:34 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/15 11:28:15 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 
 typedef struct		s_f
 {
+	long double		longdb;
 	short			isint;
 	double			db;
-	__int64_t		nb;
 	char			*binary;
 	char			*exp;
 	char			*mant;
@@ -35,6 +35,7 @@ typedef struct		s_f
 typedef struct		s_printf
 {
 	char			conv;
+	short			bigl;
 	short			h;
 	short			l;
 	int				width;

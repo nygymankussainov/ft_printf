@@ -6,48 +6,63 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 15:12:15 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/12 16:06:23 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/15 14:51:26 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*get_binary(double db)
+void	get_binary_bigl(long double db, char **str, char **exp, char **mant)
+{
+	__int128_t	nb;
+	int			j;
+	int			i;
+
+	j = 127;
+	(*str)[80] = '\0';
+	i = 0;
+	ft_memcpy(&nb, &db, 16);
+	while (j >= 0)
+	{
+		(*str)[i] = ((nb & ((__int128_t)1 << j)) >> j) + '0';
+		j--;
+		i++;
+	}
+	// printf("str_i: %d\n %s\n", ft_strlen(*str), *str);
+	*exp = ft_strncpy(*exp, *str + 49, 15);
+	(*exp)[15] = '\0';
+	*mant = ft_strncpy(*mant, *str + 64, 63);
+	(*mant)[63] = '\0';
+	// printf("exp_i: %d\n %s\n", ft_strlen(*exp), *exp);
+	// printf("mant_i: %d\n %s\n", ft_strlen(*mant), *mant);
+}
+
+void	get_binary(double db, char **str, char **exp, char **mant)
 {
 	__int64_t	nb;
 	int			j;
 	int			i;
-	char		*str;
 
 	j = 63;
-	str = (char *)ft_memalloc(sizeof(char) * 65);
-	str[64] = '\0';
+	(*str)[64] = '\0';
 	i = 0;
 	ft_memcpy(&nb, &db, 8);
 	while (j >= 0)
 	{
-		str[i] = ((nb & ((__int64_t)1 << j)) >> j) + '0';
+		(*str)[i] = ((nb & ((__int64_t)1 << j)) >> j) + '0';
 		j--;
 		i++;
 	}
-	return (str);
+	*exp = ft_strncpy(*exp, *str + 1, 11);
+	(*exp)[11] = '\0';
+	*mant = ft_strncpy(*mant, *str + 12, 52);
+	(*mant)[52] = '\0';
 }
 
-int		get_exp(char *binary, char *exp, int exp_i)
-{
-	if (!(exp = (char *)ft_memalloc(sizeof(char) * 12)))
-		return (0);
-	exp = ft_strncpy(exp, binary + 1, 11);
-	exp[11] = '\0';
-	exp_i = ft_atoi_base(exp, 2) - 1023;
-	return (exp_i);
-}
-
-int		print_integer_2(int exp_i, char **mant)
+int		print_integer(int exp_i, char **mant)
 {
 	char	*res;
 	char	*tmp;
-	char	*c;
 	char	*tmpres;
 	int		i;
 
@@ -56,11 +71,11 @@ int		print_integer_2(int exp_i, char **mant)
 	{
 		res = ft_itoa(ft_power(2, i));
 		while (i++ < exp_i)
-			res = longmulti(res, "2", c);
+			res = longmulti(res, "2", res);
 		i = 63;
 		tmpres = ft_itoa(ft_power(2, i));
 		while (i++ < exp_i)
-			tmpres = longmulti(tmpres, "2", c);
+			tmpres = longmulti(tmpres, "2", tmpres);
 		exp_i--;
 		while (**mant && exp_i >= 0)
 		{
@@ -92,36 +107,46 @@ int		print_integer_2(int exp_i, char **mant)
 	return (exp_i);
 }
 
-int		print_integer(char *binary, char *exp, int exp_i, char **mant)
-{
-	char	*res;
-
-	*mant = ft_strncpy(*mant, binary + 12, 52);
-	if (exp_i < 0)
-		write(1, "0.", 2);
-	else
-		exp_i = print_integer_2(exp_i, mant);
-	return (exp_i);
-}
-
 int		ft_conv_f(const char **format, va_list valist, t_printf s)
 {
 	int			ret;
-	char		*str;
 	t_f			f;
-	int			sign;
 
 	ret = 0;
-	f.db = (long double)va_arg(valist, double);
-	sign = f.db < 0 ? 1 : 0;
-	f.binary = sign ? get_binary(-f.db) : get_binary(f.db);
-	if (!(f.mant = (char *)ft_memalloc(sizeof(char) * 53)))
-		return (0);
-	f.mant[52] = '\0';
-	f.exp_i = get_exp(f.binary, f.exp, f.exp_i);
+	if (!s.bigl)
+	{
+		f.db = (long double)va_arg(valist, double);
+		if (!(f.binary = (char *)ft_memalloc(sizeof(char) + 65)))
+			return (0);
+		if (!(f.exp = (char *)ft_memalloc(sizeof(char) * 12)))
+			return (0);
+		if (!(f.mant = (char *)ft_memalloc(sizeof(char) * 53)))
+			return (0);
+		get_binary(f.db, &f.binary, &f.exp, &f.mant);
+		free(f.binary);
+		f.exp_i = ft_atoi_base(f.exp, 2) - 1023;
+	}
+	else
+	{
+		f.longdb = (long double)va_arg(valist, long double);
+		if (!(f.binary = (char *)ft_memalloc(sizeof(char) + 81)))
+			return (0);
+		if (!(f.exp = (char *)ft_memalloc(sizeof(char) * 16)))
+			return (0);
+		if (!(f.mant = (char *)ft_memalloc(sizeof(char) * 64)))
+			return (0);
+		get_binary_bigl(f.longdb, &f.binary, &f.exp, &f.mant);
+		free(f.binary);
+		f.exp_i = ft_atoi_base(f.exp, 2) - 16383;
+	}
+	if (f.exp_i < 0)
+		write(1, "0.", 2);
+	else
+		f.exp_i = print_integer(f.exp_i, &f.mant);
 	f.isint = f.exp_i >= 0 ? 1 : 0;
-	f.exp_i = print_integer(f.binary, f.exp, f.exp_i, &f.mant);
 	print_decimal(f.mant, f.exp_i, f.isint);
 	*F += 1;
+	free(f.exp);
+	/* free(f.mant); - fix this (!) */
 	return (ret);
 }
