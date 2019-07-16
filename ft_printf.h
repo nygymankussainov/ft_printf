@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:02:01 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/15 11:28:15 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/16 15:47:49 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int					ft_symbol(const char **format, va_list valist, t_printf s);
 int					print_width(char *str, t_printf s, int ret);
 void				print_decimal(char *mant, int exp_i, short isint);
 int					get_width(char *str);
-char				*longadd(char *s1, char *s2);
-char				*longmulti(const char *a, const char *b, char *c);
-char				*longdiv(char *number, int divisor);
+void				longadd(char *s1, char *s2, char **res2);
+void				longmulti(char *a, const char *b, char **c);
+void				longdiv(char *number, int divisor, char **res);
 
 #endif

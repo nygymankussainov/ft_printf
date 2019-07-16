@@ -6,13 +6,13 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 13:19:49 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/15 14:51:28 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/16 15:25:14 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*operation(const char *a, const char *b, char *c)
+char	*operation(char *a, const char *b, char *c)
 {
 	int i;
 	int j;
@@ -40,24 +40,26 @@ char	*operation(const char *a, const char *b, char *c)
 	return (c);
 }
 
-char	*longmulti(const char *a, const char *b, char *c)
+void	longmulti(char *a, const char *b, char **res)
 {
-	int la;
-	int lb;
+	int 	la;
+	int 	lb;
+	char	*c;
 
-	c = (char *)ft_memalloc(sizeof(char) * 16382);
+	if (!(c = (char *)ft_memalloc(sizeof(char) * 16382)))
+		return ;
 	if (a[0] == '0' || b[0] == '0')
 	{
 		c[0] = '0';
 		c[1] = '\0';
-		return (c);
+		return ;
 	}
 	la = ft_strlen(a);
 	lb = ft_strlen(b);
 	c = ft_memset(c, '0', la + lb);
 	c[la + lb] = '\0';
 	c = operation(a, b, c);
-	if (c[0] == '0')
-		c = ft_memmove(c, c + 1, la + lb);
-	return (c);
+	ft_bzero(*res, ft_strlen(*res));
+	*res = c[0] == '0' ? ft_strcpy(*res, c + 1) : ft_strcpy(*res, c);
+	free(c);
 }

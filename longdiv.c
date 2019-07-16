@@ -6,13 +6,13 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 16:39:28 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/11 16:40:20 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/16 15:40:03 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*longdiv(char *number, int divisor)
+void	longdiv(char *number, int divisor, char **res)
 {
 	int		len;
 	int		i;
@@ -25,7 +25,8 @@ char	*longdiv(char *number, int divisor)
 	while (temp < divisor)
 		temp = temp * 10 + (number[++idx] - '0');
 	len = ft_strlen(number);
-	ans = (char *)ft_memalloc(sizeof(char) * (len + 1));
+	if (!(ans = (char *)ft_memalloc(sizeof(char) * (len + 1))))
+		return ;
 	ans[len] = '\0';
 	i = 0;
 	while (len > idx)
@@ -35,6 +36,10 @@ char	*longdiv(char *number, int divisor)
 		i++;
 	}
 	if (ft_strlen(ans) == 0)
-		return ("0");
-	return (ans);
+		ans[0] = '0';
+	free(*res);
+	if (!(*res = (char *)ft_memalloc(sizeof(char) * (ft_strlen(ans) + 1))))
+		return ;
+	*res = ft_strcpy(*res, ans);
+	free(ans);
 }
