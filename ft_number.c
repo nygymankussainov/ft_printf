@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 14:20:32 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/06 15:18:10 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/17 16:36:16 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int		ft_number(const char **format, va_list valist, t_printf s)
 	else if (s.conv == 'p')
 		ret = ft_conv_p(F, valist, s);
 	else if (s.conv == 'f')
-		ret = ft_conv_f(F, valist, s);
+		ret = ft_conv_f(F, valist, s.bigl);
 	return (ret);
 }

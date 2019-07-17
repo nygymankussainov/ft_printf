@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 09:56:52 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/16 16:04:13 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/17 13:18:04 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 // 	return (res);
 // }
 
-void	print_decimal(char *mant, int exp_i, short isint)
+int		print_decimal(char *mant, int exp_i, short isint)
 {
 	char		*res;
 	char		*tmp;
@@ -61,7 +61,7 @@ void	print_decimal(char *mant, int exp_i, short isint)
 	if (!*mant)
 	{
 		write(1, "0", 1);
-		return ;
+		return (1);
 	}
 	while (*mant)
 	{
@@ -146,4 +146,5 @@ void	print_decimal(char *mant, int exp_i, short isint)
 	ft_putstr(res, 0);
 	free(res);
 	free(tmp);
+	return (0);
 }
