@@ -6,47 +6,47 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 09:56:52 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/17 13:18:04 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/18 18:52:53 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-// char	*print_decimal_2(char *res, char *tmp, char *mant, int exp_i)
-// {
-// 	char		*c;
-// 	char		*tmptmp;
-// 	int			i;
-// 	int			j;
-// 	int			k;
+char	*print_decimal_2(char *res, char *tmp, char *mant, int exp_i)
+{
+	char		*n2;
+	int			i;
+	int			j;
+	int			k;
 
-// 	tmptmp = ft_itoa(ft_power(5, 24));
-// 	while (*mant)
-// 	{
-// 		tmptmp = longmulti(tmptmp, "5" 		if (*mant == '1')
-// 		{
-// 			i = 0;
-// 			j = ft_strlen(tmptmp);
-// 			k = 0;
-// 			while (tmptmp[k])
-// 			{
-// 				while (j < -exp_i)
-// 				{
-// 					i++;
-// 					j++;
-// 				}
-// 				tmp[i] = tmptmp[k];
-// 				i++;
-// 				k++;
-// 			}
-// 			res = longadd(res, tmp);
-// 			ft_bzero(tmp, ft_strlen(tmp));
-// 		}
-// 		mant += 1;
-// 		exp_i--;
-// 	}
-// 	return (res);
-// }
+	n2 = ft_itoa(ft_power(5, 24));
+	while (*mant)
+	{
+		longmulti(n2, "5", &n2);
+		if (*mant == '1')
+		{
+			i = 0;
+			j = ft_strlen(n2);
+			k = 0;
+			while (n2[k])
+			{
+				while (j < -exp_i)
+				{
+					i++;
+					j++;
+				}
+				tmp[i] = n2[k];
+				i++;
+				k++;
+			}
+			longadd(res, tmp, &res);
+			ft_bzero(tmp, ft_strlen(tmp));
+		}
+		mant += 1;
+		exp_i--;
+	}
+	return (res);
+}
 
 int		print_decimal(char *mant, int exp_i, short isint)
 {
@@ -54,8 +54,8 @@ int		print_decimal(char *mant, int exp_i, short isint)
 	char		*tmp;
 	int			i;
 	int			j;
-	char		*restmp;
-	char		*tmptmp;
+	char		*n1;
+	char		*n2;
 
 	i = -exp_i;
 	if (!*mant)
@@ -73,12 +73,11 @@ int		print_decimal(char *mant, int exp_i, short isint)
 		i--;
 		mant--;
 	}
-	res = (char *)ft_memalloc(sizeof(char) * (i + 1));
+	if (!(res = (char *)ft_memalloc(sizeof(char) * (i + 1))) ||
+		!(tmp = (char *)ft_memalloc(sizeof(char) * (i + 1))))
+		return (0);
 	ft_bzero(res, i);
-	res[i + 1] = '\0';
-	tmp = (char *)ft_memalloc(sizeof(char) * (i + 1));
 	ft_bzero(tmp, i);
-	tmp[i + 1] = '\0';
 	mant = mant - (i + exp_i);
 	if (isint && *mant)
 	{
@@ -92,48 +91,61 @@ int		print_decimal(char *mant, int exp_i, short isint)
 	if (-exp_i > 27)
 	{
 		i = 27;
-		restmp = ft_itoa(ft_power(5, 27));
+		n1 = ft_itoa(ft_power(5, 27));
 		while (-exp_i > i)
 		{
-			longmulti(restmp, "5", &restmp);
+			longmulti(n1, "5", &n1);
 			i++;
 		}
 		i = 0;
-		j = ft_strlen(restmp);
-		while (*restmp)
+		j = ft_strlen(n1);
+		while (*n1)
 		{
 			while (j < -exp_i)
 			{
 				i++;
 				j++;
 			}
-			res[i] = *restmp;
+			res[i] = *n1;
 			i++;
-			restmp++;
+			n1++;
 		}
-		res[i] = '\0';
 		exp_i--;
 	}
 	else
 	{
-		restmp = ft_itoa(ft_power(5, -exp_i));
-		while (*mant)
+		n1 = ft_itoa(ft_power(5, -exp_i));
+		i = 0;
+		j = ft_strlen(n1);
+		while (*n1)
+		{
+			while (j < -exp_i)
+			{
+				i++;
+				j++;
+			}
+			res[i] = *n1;
+			i++;
+			n1++;
+		}
+		exp_i--;
+		while (*mant && -exp_i <= 24)
 		{
 			if (*mant == '1')
 			{
 				i = 0;
-				tmptmp = ft_itoa(ft_power(5, -exp_i));
-				j = ft_strlen(tmptmp);
-				while (*tmptmp)
+				n2 = ft_itoa(ft_power(5, -exp_i));
+				j = ft_strlen(n2);
+				while (*n2)
 				{
 					while (j < -exp_i)
 					{
 						i++;
 						j++;
 					}
-					tmp[i] = *tmptmp;
+					tmp[i] = *n2;
 					i++;
-					tmptmp++;
+					n2++;
 				}
 				longadd(res, tmp, &res);
 				ft_bzero(tmp, ft_strlen(tmp));
@@ -142,7 +154,7 @@ int		print_decimal(char *mant, int exp_i, short isint)
 			exp_i--;
 		}
 	}
-	// res = print_decimal_2(res, tmp, mant, exp_i);
+	res = print_decimal_2(res, tmp, mant, exp_i);
 	ft_putstr(res, 0);
 	free(res);
 	free(tmp);
