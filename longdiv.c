@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 16:39:28 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/16 15:40:03 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/18 11:31:53 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,13 @@ void	longdiv(char *number, int divisor, char **res)
 	len = ft_strlen(number);
 	if (!(ans = (char *)ft_memalloc(sizeof(char) * (len + 1))))
 		return ;
-	ans[len] = '\0';
 	i = 0;
 	while (len > idx)
 	{
-		ans[i] = (temp / divisor) + '0';
+		ans[i++] = (temp / divisor) + '0';
 		temp = (temp % divisor) * 10 + number[++idx] - '0';
-		i++;
 	}
-	if (ft_strlen(ans) == 0)
-		ans[0] = '0';
+	ans[0] = ft_strlen(ans) == 0 ? '0' : ans[0];
 	free(*res);
 	if (!(*res = (char *)ft_memalloc(sizeof(char) * (ft_strlen(ans) + 1))))
 		return ;

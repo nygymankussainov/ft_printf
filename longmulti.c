@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 13:19:49 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/16 15:25:14 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/18 11:28:17 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ char	*operation(char *a, const char *b, char *c)
 
 void	longmulti(char *a, const char *b, char **res)
 {
-	int 	la;
-	int 	lb;
+	int		la;
+	int		lb;
 	char	*c;
 
 	if (!(c = (char *)ft_memalloc(sizeof(char) * 16382)))
