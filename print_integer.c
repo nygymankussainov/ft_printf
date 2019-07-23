@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 12:28:59 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/17 16:58:13 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/18 19:07:26 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	get_big_number(char **res, int exp_i)
 	free(s1);
 	while (i++ < exp_i)
 	{
-		s1 = (char *)ft_memalloc(sizeof(char) * (ft_strlen(*res) + 1));
+		if (!(s1 = (char *)ft_memalloc(sizeof(char) * (ft_strlen(*res) + 1))))
+			return ;
 		s1 = ft_strcpy(s1, *res);
 		longmulti(s1, "2", res);
 		free(s1);
