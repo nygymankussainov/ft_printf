@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 14:20:32 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/17 16:36:16 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/24 15:53:45 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,17 @@ int		ft_number(const char **format, va_list valist, t_printf s)
 	int		ret;
 
 	ret = 0;
-	s.conv = **F;
-	if (s.conv == 'd' || s.conv == 'i')
+	if (**F == 'd' || **F == 'i')
 		ret = ft_conv_d(F, valist, s);
-	else if (s.conv == 'x' || s.conv == 'X')
+	else if (**F == 'x' || **F == 'X')
 		ret = ft_conv_x(F, valist, s);
-	else if (s.conv == 'o')
+	else if (**F == 'o')
 		ret = ft_conv_o(F, valist, s);
-	else if (s.conv == 'u')
+	else if (**F == 'u')
 		ret = ft_conv_u(F, valist, s);
-	else if (s.conv == 'p')
+	else if (**F == 'p')
 		ret = ft_conv_p(F, valist, s);
-	else if (s.conv == 'f')
-		ret = ft_conv_f(F, valist, s.bigl);
+	else if (**F == 'f' || **F == 'F')
+		ret = ft_conv_f(F, valist, s);
 	return (ret);
 }

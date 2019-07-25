@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:02:01 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/17 16:37:07 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/25 17:57:50 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct		s_f
 
 typedef struct		s_printf
 {
-	char			conv;
+	int				prec;
 	short			bigl;
 	short			h;
 	short			l;
@@ -52,13 +52,17 @@ int					ft_conv_p(const char **format, va_list valist, t_printf s);
 int					ft_conv_x(const char **format, va_list valist, t_printf s);
 int					ft_conv_d(const char **format, va_list valist, t_printf s);
 int					ft_conv_u(const char **format, va_list valist, t_printf s);
-int					ft_conv_f(const char **format, va_list valist, short bigl);
+int					ft_conv_f(const char **format, va_list valist, t_printf s);
 int					ft_number(const char **format, va_list valist, t_printf s);
 int					ft_symbol(const char **format, va_list valist, t_printf s);
-int					print_width(char *str, t_printf s, int ret);
-int					print_integer(int exp_i, char *mant, short isint);
-int					print_decimal(char *mant, int exp_i, short isint);
+int					width(char *str, t_printf s, int ret);
+int					integer_part(int exp_i, char *mant, short isint,
+	t_printf s);
+int					decimal_part(char *mant, int exp_i, short isint,
+	t_printf s);
+int					print(char **res, int prec);
 int					get_width(char *str);
+int					if_noprec(char **res);
 void				longadd(char *s1, char *s2, char **res2);
 void				longmulti(char *a, const char *b, char **c);
 void				longdiv(char *number, int divisor, char **res);

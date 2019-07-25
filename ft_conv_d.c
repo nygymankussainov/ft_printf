@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:43:45 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/15 19:14:40 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/24 13:51:36 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int		ft_conv_d(const char **format, va_list valist, t_printf s)
 	ret = s.sign == 2 ? ft_strlen(str) + 1 : ft_strlen(str);
 	if (ret >= s.width)
 		ft_putstr(str, s.sign);
-	ret = ret < s.width ? print_width(str, s, ret) : ret;
+	ret = ret < s.width ? width(str, s, ret) : ret;
 	*F += 1;
+	free(str);
 	return (ret);
 }

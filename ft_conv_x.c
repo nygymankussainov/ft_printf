@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:53:37 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/19 10:58:41 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/24 13:52:50 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int		ft_conv_x(const char **format, va_list valist, t_printf s)
 		}
 		ft_putstr(str, s.hash);
 	}
-	ret = ret < s.width ? print_width(str, s, ret) : ret;
+	ret = ret < s.width ? width(str, s, ret) : ret;
 	*F += 1;
+	free(str);
 	return (ret);
 }

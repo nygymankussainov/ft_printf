@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_integer.c                                    :+:      :+:    :+:   */
+/*   integer_part.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 12:28:59 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/18 19:07:26 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/25 17:54:29 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,18 @@ int		small_int(char **mant, int *exp_i)
 	return (ret);
 }
 
-int		print_integer(int exp_i, char *mant, short isint)
+int		integer_part(int exp_i, char *mant, short isint, t_printf s)
 {
 	int		i;
 	int		ret;
 
 	if (exp_i < 0)
 	{
-		write(1, "0.", 2);
-		return (print_decimal(mant, exp_i, isint));
+		write(1, "0", 2);
+		return (decimal_part(mant, exp_i, isint, s) + 1);
 	}
 	ret = exp_i >= 64 ? big_int(&mant, &exp_i) :
 		small_int(&mant, &exp_i);
-	write(1, ".", 1);
-	ret += print_decimal(mant, exp_i, isint);
+	ret += decimal_part(mant, exp_i, isint, s);
 	return (ret);
 }

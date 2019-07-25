@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   longmulti.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 13:19:49 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/18 11:28:17 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/19 23:51:58 by nygymankuss      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*operation(char *a, const char *b, char *c)
 
 void	longmulti(char *a, const char *b, char **res)
 {
+	int		len;
 	int		la;
 	int		lb;
 	char	*c;
@@ -59,7 +60,6 @@ void	longmulti(char *a, const char *b, char **res)
 	c = ft_memset(c, '0', la + lb);
 	c[la + lb] = '\0';
 	c = operation(a, b, c);
-	ft_bzero(*res, ft_strlen(*res));
 	*res = c[0] == '0' ? ft_strcpy(*res, c + 1) : ft_strcpy(*res, c);
 	free(c);
 }

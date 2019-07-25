@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_width.c                                      :+:      :+:    :+:   */
+/*   width.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 15:46:28 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/15 19:44:31 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/24 12:36:16 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		get_width(char *str)
 	return (width);
 }
 
-int		print_width(char *str, t_printf s, int ret)
+int		width(char *str, t_printf s, int ret)
 {
 	if (s.sign < 0)
 		ft_putstr(str, s.sign);
