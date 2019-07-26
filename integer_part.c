@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 12:28:59 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/25 17:54:29 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/26 18:28:47 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,74 +31,67 @@ void	get_big_number(char **res, int exp_i)
 	}
 }
 
-int		big_int(char **mant, int *exp_i)
+void	big_int(char **mant, int *exp_i, char **res)
 {
-	int		ret;
 	char	*tmp;
-	char	*res;
 
-	if (!(res = (char *)ft_memalloc(sizeof(char) * 16382)))
-		return (0);
-	get_big_number(&res, *exp_i);
-	if (!(tmp = (char *)ft_memalloc(sizeof(char) * (ft_strlen(res) + 1))))
-		return (0);
+	if (!(*res = (char *)ft_memalloc(sizeof(char) * 16382)))
+		return ;
+	get_big_number(res, *exp_i);
+	if (!(tmp = (char *)ft_memalloc(sizeof(char) * (ft_strlen(*res) + 1))))
+		return ;
 	get_big_number(&tmp, (*exp_i)--);
 	while (**mant && *exp_i >= 0)
 	{
 		longdiv(tmp, 2, &tmp);
 		if (**mant == '1')
-			longadd(res, tmp, &res);
+			longadd(*res, tmp, res);
 		(*mant)++;
 		(*exp_i)--;
 	}
-	ft_putstr(res, 0);
-	ret = ft_strlen(res);
-	free(res);
 	free(tmp);
-	return (ret);
 }
 
-int		small_int(char **mant, int *exp_i)
+void	small_int(char **mant, int *exp_i, char **res)
 {
-	int		ret;
-	char	*res;
 	char	*nb1;
 	char	*nb2;
 
-	res = ft_itoa(ft_power(2, (*exp_i)--));
+	*res = ft_itoa(ft_power(2, (*exp_i)--));
 	while (**mant && *exp_i >= 0)
 	{
 		if (**mant == '1')
 		{
-			if (!(nb1 = (char *)ft_memalloc(ft_strlen(res) + 1)))
-				return (0);
-			nb1 = ft_strcpy(nb1, res);
+			if (!(nb1 = (char *)ft_memalloc(ft_strlen(*res) + 1)))
+				return ;
+			nb1 = ft_strcpy(nb1, *res);
 			nb2 = ft_itoa(ft_power(2, *exp_i));
-			longadd(nb1, nb2, &res);
+			longadd(nb1, nb2, res);
 			free(nb1);
 			free(nb2);
 		}
 		(*mant)++;
 		(*exp_i)--;
 	}
-	ft_putstr(res, 0);
-	ret = ft_strlen(res);
-	free(res);
-	return (ret);
 }
 
-int		integer_part(int exp_i, char *mant, short isint, t_printf s)
+int		integer_part(t_f f, t_printf s)
 {
 	int		i;
 	int		ret;
+	char	*res;
 
-	if (exp_i < 0)
+	if (f.exp_i < 0)
 	{
-		write(1, "0", 2);
-		return (decimal_part(mant, exp_i, isint, s) + 1);
+		res = ft_strnew(2);
+		res[0] = '0';
+		ret = decimal_part(&res, f, s) + 1;
 	}
-	ret = exp_i >= 64 ? big_int(&mant, &exp_i) :
-		small_int(&mant, &exp_i);
-	ret += decimal_part(mant, exp_i, isint, s);
+	else
+	{
+		f.exp_i >= 64 ? big_int(&f.mant, &f.exp_i, &res) :
+			small_int(&f.mant, &f.exp_i, &res);
+		ret = decimal_part(&res, f, s);
+	}
 	return (ret);
 }

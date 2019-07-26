@@ -6,87 +6,77 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:18:47 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/25 19:15:34 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/26 18:42:56 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	rounding(char **res, int prec)
+int		ifnine(char **decimal, char **integer, int prec)
 {
-	int		tmp;
-
-	tmp = prec;
-	// if ((*res)[prec])
-	// {
-		if ((*res)[prec] >= '5')
-		{
-			if ((*res)[prec] == '9')
-			{
-				while ((*res)[tmp] == '9')
-					(*res)[tmp--] = '0';
-				(*res)[tmp]++;
-			}
-			else
-				(*res)[prec - 1]++;
-			if ((*res)[prec] == '5')
-				if (!(*res)[prec + 1])
-					(*res)[prec - 1]--;
-		}
-		(*res)[prec] = '\0';
-	// }
-	// else if (!(*res)[prec] && prec == 0)
-	// 	(*res)[prec] = '\0';
-	// else if (!(*res)[prec] && prec > 0)
-	// {
-	// 	while (prec--)
-	// 		write(1, "0", 1);
-	// }
+	while ((*decimal)[prec] == '9')
+		(*decimal)[prec--] = '0';
+	if (prec >= 0)
+		(*decimal)[prec]++;
+	else
+		longadd(*integer, "1", integer);
+	return (prec);
 }
 
-// int		if_noprec(char **res)
-// {
-// 	int		prec;
-// 	int		len;
+void	rounding(char **decimal, char **integer, int prec)
+{
+	int		tmp;
+	int		i;
 
-// 	prec = 6;
-// 	while ((*res)[prec - 1])
-// 	{
-// 		if ((*res)[prec - 1] != '0')
-// 		{
-// 			rounding(res, 6);
-// 			ft_putstr(*res, 0);
-// 			free(*res);
-// 			return (7);
-// 		}
-// 		prec--;
-// 	}
-// 	(*res)[prec] = '\0';
-// 	len = ft_strlen(*res);
-// 	ft_putstr(*res, 0);
-// 	prec -= len;
-// 	while (prec--)
-// 		write(1, "0", 1);
-// 	free(*res);
-// 	return (7);
-// }
+	tmp = prec;
+	if ((*decimal)[prec] >= '5' && prec > 0)
+	{
+		if ((*decimal)[tmp] == '9')
+			tmp = ifnine(decimal, integer, tmp);
+		else if ((*decimal)[tmp - 1] == '9')
+			tmp = ifnine(decimal, integer, tmp - 1);
+		else if ((*decimal)[tmp] < '9' && prec > 0)
+		{
+			i = tmp == prec ? 1 : 0;
+			if (!(*decimal)[tmp + i])
+				(*decimal)[tmp - i]--;
+			else
+				(*decimal)[tmp - i]++;
+		}
+	}
+	else if (prec == 0 && (*decimal)[prec])
+	{
+		if ((*decimal)[prec] > '5')
+			longadd(*integer, "1", integer);
+		// else if ((*decimal)[prec] == '5')
+		// 	if ((*decimal)[prec + 1])
+		// 		longadd(*integer, "1", integer);
+	}
+	(*decimal)[prec] = '\0';
+}
 
-int		print(char **res, int prec)
+int		print(char **decimal, char **integer, t_printf s)
 {
 	int		ret;
 
-	rounding(res, prec);
-	ret = ft_strlen(*res);
-	if (prec > 0)
+	ret = s.sign ? 1 : 0;
+	ret += s.prec > 0 || s.hash ? 1 : 0;
+	rounding(decimal, integer, s.prec);
+	if (s.sign)
+		write(1, "+", 1);
+	ft_putstr(*integer, 0);
+	if (s.prec > 0 || s.hash)
 		write(1, ".", 1);
-	ft_putstr(*res, 0);
-	if (prec && !(*res)[prec])
+	ft_putstr(*decimal, 0);
+	ret += ft_strlen(*decimal) + ft_strlen(*integer);
+	if (s.prec && !(*decimal)[s.prec])
 	{
-		prec = prec - ret;
-		ret += prec > 0 ? prec : 0;
-		while (prec-- > 0)
+		s.prec = s.prec - ft_strlen(*decimal);
+		ret += s.prec > 0 ? s.prec : 0;
+		while (s.prec--)
 			write(1, "0", 1);
 	}
-	free(*res);
-	return (ret + 1);
+	free(*decimal);
+	free(*integer);
+	return (ret);
 }

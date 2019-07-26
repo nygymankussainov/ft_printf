@@ -119,36 +119,36 @@ int		iszeroes(char *mant)
 	return (1);
 }
 
-int		decimal_part(char *mant, int exp_i, short isint, t_printf s)
+int		decimal_part(char **integer, t_f f, t_printf s)
 {
 	int		len;
 	char	*res;
 	char	*n1;
 
-	if (!*mant || iszeroes(mant))
+	if (!*f.mant || iszeroes(f.mant))
 	{
 		res = ft_strnew(0);
-		return (print(&res, s.prec));
+		return (print(&res, integer, s));
 	}
-	len = get_length(mant, exp_i);
-	if (isint && *mant)
+	len = get_length(f.mant, f.exp_i);
+	if (f.isint && *f.mant)
 	{
-		while (*mant != '1')
+		while (*f.mant != '1')
 		{
-			mant++;
-			exp_i--;
+			f.mant++;
+			f.exp_i--;
 		}
-		mant++;
+		f.mant++;
 	}
-	res = get_initial_number(len, exp_i, &n1);
-	exp_i--;
-	mant = s.bigl ? mant + 1 : mant;
+	res = get_initial_number(len, f.exp_i, &n1);
+	f.exp_i--;
+	f.mant = s.bigl ? f.mant + 1 : f.mant;
 	// if (!isint)
 	// {
 	// 	longmulti(n1, "5", &n1);
 	// 	mant++;
 	// 	exp_i--;
 	// }
-	get_ret(mant, &res, exp_i, &n1);
-	return (print(&res, s.prec));
+	get_ret(f.mant, &res, f.exp_i, &n1);
+	return (print(&res, integer, s));
 }

@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 15:12:15 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/24 22:02:11 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/26 18:50:04 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int		ft_conv_f(const char **format, va_list valist, t_printf s)
 			return (0);
 		f.exp_i = get_binary_bigl(f.db, &f.binary, &f.exp, &f.mant);
 		ret = f.binary[48] == '1' ? 1 : 0;
+		s.sign = ret ? -1 : s.sign;
 	}
 	else
 	{
@@ -115,9 +116,10 @@ int		ft_conv_f(const char **format, va_list valist, t_printf s)
 			return (0);
 		f.exp_i = get_binary(f.db, &f.binary, &f.exp, &f.mant);
 		ret = f.binary[0] != '0' ? 1 : 0;
+		s.sign = ret ? -1 : s.sign;
 	}
 	f.isint = f.exp_i >= 0 ? 1 : 0;
-	ret += integer_part(f.exp_i, f.mant, f.isint, s);
+	ret += integer_part(f, s);
 	(*F)++;
 	free(f.binary);
 	free(f.exp);

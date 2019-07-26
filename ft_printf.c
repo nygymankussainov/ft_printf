@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:57:32 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/25 18:05:45 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/26 18:42:37 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		ft_fill_struct(const char *format, int i, t_printf **s)
 		(*s)->hash = str[i] == '#' ? 1 : (*s)->hash;
 		(*s)->zero = str[i] == '0' ? 1 : (*s)->zero;
 		(*s)->sign = str[i] == '-' ? -1 : (*s)->sign;
-		(*s)->sign = str[i] == '+' ? 2 : (*s)->sign;
+		(*s)->sign = str[i] == '+' && (*s)->sign > -1 ? 2 : (*s)->sign;
 		(*s)->bigl = str[i] == 'L' ? 1 : (*s)->bigl;
 		i++;
 	}
