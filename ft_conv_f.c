@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 15:12:15 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/26 18:50:04 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/28 20:18:29 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int		get_binary_bigl(long double db, char **str, char **exp, char **mant)
 		j--;
 		i++;
 	}
-	if ((*str)[48] == '1')
-		write(1, "-", 1);
 	*exp = ft_strncpy(*exp, *str + 49, 15);
 	(*exp)[15] = '\0';
 	*mant = ft_strncpy(*mant, *str + 64, 63);
@@ -57,8 +55,6 @@ int		get_binary(double db, char **str, char **exp, char **mant)
 		j--;
 		i++;
 	}
-	if ((*str)[0] != '0')
-		write(1, "-", 1);
 	*exp = ft_strncpy(*exp, *str + 1, 11);
 	(*exp)[11] = '\0';
 	*mant = ft_strncpy(*mant, *str + 12, 52);
@@ -94,6 +90,7 @@ int		is_nan_inf(const char **format, long double db)
 int		ft_conv_f(const char **format, va_list valist, t_printf s)
 {
 	int			ret;
+	int			sign;
 	t_f			f;
 
 	f.db = s.bigl ? va_arg(valist, long double) :
@@ -106,8 +103,7 @@ int		ft_conv_f(const char **format, va_list valist, t_printf s)
 			!(f.mant = (char *)ft_memalloc(sizeof(char) * 64)))
 			return (0);
 		f.exp_i = get_binary_bigl(f.db, &f.binary, &f.exp, &f.mant);
-		ret = f.binary[48] == '1' ? 1 : 0;
-		s.sign = ret ? -1 : s.sign;
+		sign = f.binary[48] == '1' ? -1 : 0;
 	}
 	else
 	{
@@ -115,11 +111,11 @@ int		ft_conv_f(const char **format, va_list valist, t_printf s)
 			!(f.mant = (char *)ft_memalloc(sizeof(char) * 53)))
 			return (0);
 		f.exp_i = get_binary(f.db, &f.binary, &f.exp, &f.mant);
-		ret = f.binary[0] != '0' ? 1 : 0;
-		s.sign = ret ? -1 : s.sign;
+		sign = f.binary[0] != '0' ? -1 : 0;
 	}
+	s.signflag = sign < 0 && s.signflag > 0 ? 0 : s.signflag;
 	f.isint = f.exp_i >= 0 ? 1 : 0;
-	ret += integer_part(f, s);
+	ret = integer_part(f, s, sign);
 	(*F)++;
 	free(f.binary);
 	free(f.exp);

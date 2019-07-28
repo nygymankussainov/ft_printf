@@ -119,7 +119,7 @@ int		iszeroes(char *mant)
 	return (1);
 }
 
-int		decimal_part(char **integer, t_f f, t_printf s)
+int		decimal_part(char **integer, t_f f, t_printf s, int sign)
 {
 	int		len;
 	char	*res;
@@ -128,7 +128,7 @@ int		decimal_part(char **integer, t_f f, t_printf s)
 	if (!*f.mant || iszeroes(f.mant))
 	{
 		res = ft_strnew(0);
-		return (print(&res, integer, s));
+		return (print(&res, integer, s, sign));
 	}
 	len = get_length(f.mant, f.exp_i);
 	if (f.isint && *f.mant)
@@ -150,5 +150,5 @@ int		decimal_part(char **integer, t_f f, t_printf s)
 	// 	exp_i--;
 	// }
 	get_ret(f.mant, &res, f.exp_i, &n1);
-	return (print(&res, integer, s));
+	return (print(&res, integer, s, sign));
 }

@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:18:47 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/26 18:42:56 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/28 20:23:41 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,27 @@ void	rounding(char **decimal, char **integer, int prec)
 	(*decimal)[prec] = '\0';
 }
 
-int		print(char **decimal, char **integer, t_printf s)
+int		print(char **decimal, char **integer, t_printf s, int sign)
 {
 	int		ret;
+	char	*res;
 
-	ret = s.sign ? 1 : 0;
-	ret += s.prec > 0 || s.hash ? 1 : 0;
+	ret = s.signflag > 0 && sign >= 0 ? 1 : 0;
 	rounding(decimal, integer, s.prec);
-	if (s.sign)
-		write(1, "+", 1);
-	ft_putstr(*integer, 0);
-	if (s.prec > 0 || s.hash)
-		write(1, ".", 1);
-	ft_putstr(*decimal, 0);
-	ret += ft_strlen(*decimal) + ft_strlen(*integer);
-	if (s.prec && !(*decimal)[s.prec])
+	if (s.prec || s.hash)
+		*integer = ft_strjoin(*integer, ".", 1, 0);
+	res = ft_strjoin(*integer, *decimal, 1, 0);
+	res = sign < 0 ? ft_strjoin("-", res, 0, 1) : res;
+	ret += ft_strlen(res);
+	if (s.width)
+		ret = width(res, s, ret);
+	else
+	{
+		if (s.signflag > 0 && sign >= 0)
+			write(1, "+", 1);
+		ft_putstr(res, 0);
+	}
+	if (s.prec && (!(*decimal)[s.prec] || !**decimal))
 	{
 		s.prec = s.prec - ft_strlen(*decimal);
 		ret += s.prec > 0 ? s.prec : 0;
@@ -77,6 +83,6 @@ int		print(char **decimal, char **integer, t_printf s)
 			write(1, "0", 1);
 	}
 	free(*decimal);
-	free(*integer);
+	free(res);
 	return (ret);
 }
