@@ -6,19 +6,11 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:58:14 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/15 13:40:47 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/29 22:04:35 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static size_t	ft_iswhitesp(const char *str, size_t i)
-{
-	while (str[i] && (str[i] == ' ' || str[i] == '\n' || str[i] == '\r' ||
-				str[i] == '\t' || str[i] == '\v' || str[i] == '\f'))
-		i++;
-	return (i);
-}
 
 int				ft_atoi(const char *str)
 {
@@ -29,7 +21,7 @@ int				ft_atoi(const char *str)
 	i = 0;
 	result = 0;
 	sign = 1;
-	i = ft_iswhitesp(str, i);
+	i = ft_iswhitesp(str);
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')

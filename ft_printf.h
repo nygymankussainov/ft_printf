@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:02:01 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/28 18:20:48 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/29 22:59:57 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct		s_printf
 	short			l;
 	int				width;
 	short			zero;
-	short			signflag;
-	short			sign;
+	short			pos;
+	short			neg;
 	short			hash;
 }					t_printf;
 
@@ -53,17 +53,18 @@ int					ft_conv_p(const char **format, va_list valist, t_printf s);
 int					ft_conv_x(const char **format, va_list valist, t_printf s);
 int					ft_conv_d(const char **format, va_list valist, t_printf s);
 int					ft_conv_u(const char **format, va_list valist, t_printf s);
-int					ft_conv_f(const char **format, va_list valist, t_printf s);
-int					ft_number(const char **format, va_list valist, t_printf s);
+int					ft_conv_f(const char **format, va_list valist, t_printf *s);
+int					ft_number(const char **format, va_list valist, t_printf *s);
 int					ft_symbol(const char **format, va_list valist, t_printf s);
 int					width(char *str, t_printf s, int ret);
-int					integer_part(t_f f, t_printf s, int sign);
-int					decimal_part(char **integer, t_f f, t_printf s, int sign);
-int					print(char **deciaml, char **integer, t_printf s, int sign);
+int					integer_part(t_f f, t_printf *s, int sign);
+int					decimal_part(char **integer, t_f f, t_printf *s, int sign);
+int					print(char **decimal, char **integer, t_printf *s,
+	int sign);
 int					get_width(char *str);
-int					if_noprec(char **res);
 void				longadd(char *s1, char *s2, char **res2);
 void				longmulti(char *a, const char *b, char **c);
 void				longdiv(char *number, int divisor, char **res);
+int					iswhitesp(char c);
 
 #endif

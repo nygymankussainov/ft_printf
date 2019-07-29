@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 10:27:31 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/24 12:56:38 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/29 17:15:06 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_symbol(const char **format, va_list valist, t_printf s)
 		str = va_arg(valist, char *);
 		ret = ft_strlen(str);
 		if (ret >= s.width)
-			ft_putstr(str, 0);
+			ft_putstr(str);
 		ret = ret < s.width ? width(str, s, ret) : ret;
 	}
 	else

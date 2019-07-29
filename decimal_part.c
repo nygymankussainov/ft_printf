@@ -119,7 +119,7 @@ int		iszeroes(char *mant)
 	return (1);
 }
 
-int		decimal_part(char **integer, t_f f, t_printf s, int sign)
+int		decimal_part(char **integer, t_f f, t_printf *s, int sign)
 {
 	int		len;
 	char	*res;
@@ -142,13 +142,7 @@ int		decimal_part(char **integer, t_f f, t_printf s, int sign)
 	}
 	res = get_initial_number(len, f.exp_i, &n1);
 	f.exp_i--;
-	f.mant = s.bigl ? f.mant + 1 : f.mant;
-	// if (!isint)
-	// {
-	// 	longmulti(n1, "5", &n1);
-	// 	mant++;
-	// 	exp_i--;
-	// }
+	f.mant = s->bigl ? f.mant + 1 : f.mant;
 	get_ret(f.mant, &res, f.exp_i, &n1);
 	return (print(&res, integer, s, sign));
 }

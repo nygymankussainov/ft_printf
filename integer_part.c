@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 12:28:59 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/28 18:31:26 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/29 22:51:49 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	small_int(char **mant, int *exp_i, char **res)
 	}
 }
 
-int		integer_part(t_f f, t_printf s, int sign)
+int		integer_part(t_f f, t_printf *s, int sign)
 {
 	int		i;
 	int		ret;

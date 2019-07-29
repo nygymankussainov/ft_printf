@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 15:46:28 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/28 20:23:36 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/29 21:13:35 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,41 @@
 int		get_width(char *str)
 {
 	int width;
+	int	i;
 
 	width = 0;
-	str += str[0] == '-' || str[0] == '+' ? 1 : 0;
-	str += str[1] == '-' || str[1] == '+'  ? 2 : 0;
-	if (*str >= '0' && *str <= '9')
-		width = ft_atoi(str);
+	i = 0;
+	while (*str && *str != '.')
+	{
+		if (ft_isdigit(*str))
+		{
+			while (str[i] != '.' && !ft_isalpha(str[i]))
+			{
+				if (str[i] == '-' || str[i] == '+')
+				{
+					width = ft_atoi(str + i + 1);
+					return (width);
+				}
+				i++;
+			}
+			width = ft_atoi(str);
+			return (width);
+		}
+		str++;
+	}
 	return (width);
 }
 
 int		width(char *str, t_printf s, int ret)
 {
-	if (s.signflag < 0)
-		ft_putstr(str, s.signflag);
+	if (s.pos && s.zero)
+		write(1, "+", 1);
+	else if (s.neg)
+	{
+		if (s.pos)
+			write(1, "+", 1);
+		ft_putstr(str);
+	}
 	s.width -= ret;
 	if (s.width > 0)
 	{
@@ -38,7 +60,7 @@ int		width(char *str, t_printf s, int ret)
 				ft_putchar(' ');
 			else
 			{
-				if (str[0] == '-' && s.signflag >= 0)
+				if (str[0] == '-' && s.pos)
 				{
 					write(1, "-", 1);
 					str++;
@@ -47,7 +69,13 @@ int		width(char *str, t_printf s, int ret)
 			}
 		}
 	}
-	if (s.signflag >= 0)
-		ft_putstr(str, s.signflag);
+	if (s.pos && !s.neg)
+	{
+		if (!s.zero)
+			write(1, "+", 1);
+		ft_putstr(str);
+	}
+	if (!s.pos && !s.neg)
+		ft_putstr(str);
 	return (ret);
 }

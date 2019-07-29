@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 15:12:15 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/28 20:18:29 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/29 22:52:09 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,17 @@ int		is_nan_inf(const char **format, long double db)
 	return (3);
 }
 
-int		ft_conv_f(const char **format, va_list valist, t_printf s)
+int		ft_conv_f(const char **format, va_list valist, t_printf *s)
 {
 	int			ret;
 	int			sign;
 	t_f			f;
 
-	f.db = s.bigl ? va_arg(valist, long double) :
+	f.db = s->bigl ? va_arg(valist, long double) :
 		(double)va_arg(valist, double);
 	if (f.db != f.db || f.db == (1.0 / 0.0) || f.db == -(1.0 / 0.0))
 		return (is_nan_inf(F, f.db));
-	if (s.bigl)
+	if (s->bigl)
 	{
 		if (!(f.exp = (char *)ft_memalloc(sizeof(char) * 16)) ||
 			!(f.mant = (char *)ft_memalloc(sizeof(char) * 64)))
@@ -113,7 +113,6 @@ int		ft_conv_f(const char **format, va_list valist, t_printf s)
 		f.exp_i = get_binary(f.db, &f.binary, &f.exp, &f.mant);
 		sign = f.binary[0] != '0' ? -1 : 0;
 	}
-	s.signflag = sign < 0 && s.signflag > 0 ? 0 : s.signflag;
 	f.isint = f.exp_i >= 0 ? 1 : 0;
 	ret = integer_part(f, s, sign);
 	(*F)++;

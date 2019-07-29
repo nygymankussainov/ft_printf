@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:53:37 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/24 13:52:50 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/29 17:14:52 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,14 @@ int		ft_conv_x(const char **format, va_list valist, t_printf s)
 		{
 			s.hash = 3;
 			if (**F == 'X')
+			{
+				write(1, "0X", 2);
 				s.hash = 4;
+			}
+			else
+				write(1, "0x", 2);
 		}
-		ft_putstr(str, s.hash);
+		ft_putstr(str);
 	}
 	ret = ret < s.width ? width(str, s, ret) : ret;
 	*F += 1;
