@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rounding_and_print.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
+/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:18:47 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/30 06:52:43 by nygymankuss      ###   ########.fr       */
+/*   Updated: 2019/07/30 16:56:09 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ void	rounding(char **decimal, char **integer, int prec)
 	{
 		if ((*decimal)[prec] > '5')
 			longadd(*integer, "1", integer);
-		// else if ((*decimal)[prec] == '5')
-		// 	if ((*decimal)[prec + 1])
-		// 		longadd(*integer, "1", integer);
 	}
 	(*decimal)[prec] = '\0';
 }
@@ -81,12 +78,15 @@ int		print(char **decimal, char **integer, t_flags *s, int sign)
 		while (s->prec--)
 			res = ft_strjoin(res, "0", 1, 0);
 	}
+	if (s->whitesp && sign >= 0 && !s->pos)
+	{
+		ft_putchar(' ');
+		ret++;
+	}
 	if (s->width)
 		ret = width(res, s, ret);
 	else
 	{
-		// while (s->whitesp--)
-		// 	ft_putchar(' ');
 		if (s->pos && sign >= 0)
 			write(1, "+", 1);
 		ft_putstr(res);

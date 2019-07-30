@@ -6,7 +6,7 @@
 #    By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/16 11:34:51 by vhazelnu          #+#    #+#              #
-#    Updated: 2019/07/29 22:12:19 by vhazelnu         ###   ########.fr        #
+#    Updated: 2019/07/30 16:35:27 by vhazelnu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ CCFL = -Wall -Wextra -Werror
 .PHONY: all clean fclean re
 
 all: $(NAME)
+	make -C libft
 
 $(NAME):
 	gcc -o $(NAME) $(SRCS) libft/libft.a -g

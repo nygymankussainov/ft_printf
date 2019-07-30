@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   integer_part.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
+/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 12:28:59 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/30 04:29:23 by nygymankuss      ###   ########.fr       */
+/*   Updated: 2019/07/30 17:02:55 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,14 @@ int		integer_part(t_f f, t_flags *s, int sign)
 
 	if (f.exp_i < 0)
 	{
-		res = ft_strnew(2);
+		f.mant += f.exp_i == -1022 || f.exp_i == -16382 ? 1 : 0;
+		res = ft_strnew(1);
 		res[0] = '0';
-		ret = decimal_part(&res, f, s, sign) + 1;
+		ret = decimal_part(&res, f, s, sign);
 	}
 	else
 	{
+		f.mant += s->bigl ? 1 : 0;
 		f.exp_i >= 64 ? big_int(&f.mant, &f.exp_i, &res) :
 			small_int(&f.mant, &f.exp_i, &res);
 		ret = decimal_part(&res, f, s, sign);

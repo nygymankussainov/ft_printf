@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
+/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:57:32 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/30 07:08:17 by nygymankuss      ###   ########.fr       */
+/*   Updated: 2019/07/30 15:45:20 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,15 @@ int			ft_percent(const char **format, va_list valist)
 		return (0);
 	i = 0;
 	(*F)++;
-	while (iswhitesp(**F))
+	while (iswhitesp(**F) || ((**F == '-' || **F == '+')
+		&& *(*F + 1) != ft_isdigit(*(*F + 1))))
 	{
-		if ((*F)[0] == '0' || (((*F)[0] == '-' && (*F)[1] == '0')))
-			s->width++;
-		ret--;
+		if (iswhitesp(**F))
+			s->whitesp++;
+		else if (**F == '-')
+			s->neg = 1;
+		else if (**F == '+')
+			s->pos = 1;
 		(*F)++;
 	}
 	s->prec = 6;
@@ -97,8 +101,7 @@ int			ft_percent(const char **format, va_list valist)
 	if (i)
 		ft_fill_struct(*F, i, s);
 	*F += i;
-	// s->width -= ret;
-	ret += ft_conv(F, valist, s);
+	ret = ft_conv(F, valist, s);
 	free(s);
 	return (ret);
 }

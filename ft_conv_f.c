@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_conv_f.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
+/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 15:12:15 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/30 04:29:04 by nygymankuss      ###   ########.fr       */
+/*   Updated: 2019/07/30 18:47:09 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,19 @@ int		is_nan_inf(const char **format, long double db)
 	return (3);
 }
 
+t_f		*malloc_struct(t_f *f, short bigl)
+{
+	f->binary = bigl ? (char *)ft_memalloc(sizeof(char) * 129) :
+		(char *)ft_memalloc(sizeof(char) * 65);
+}
+
 int		ft_conv_f(const char **format, va_list valist, t_flags *s)
 {
 	int			ret;
 	int			sign;
-	t_f			f;
+	t_f			*f;
 
+	f = malloc_strcut(f, s->bigl);
 	f.db = s->bigl ? va_arg(valist, long double) :
 		(double)va_arg(valist, double);
 	if (f.db != f.db || f.db == (1.0 / 0.0) || f.db == -(1.0 / 0.0))
