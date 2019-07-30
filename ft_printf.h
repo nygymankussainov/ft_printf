@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
+/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:02:01 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/30 05:23:37 by nygymankuss      ###   ########.fr       */
+/*   Updated: 2019/07/30 22:13:02 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int					ft_conv_f(const char **format, va_list valist, t_flags *s);
 int					ft_number(const char **format, va_list valist, t_flags *s);
 int					ft_symbol(const char **format, va_list valist, t_flags *is);
 int					width(char *str, t_flags *s, int ret);
-int					integer_part(t_f f, t_flags *s, int sign);
-int					decimal_part(char **integer, t_f f, t_flags *s, int sign);
+int					integer_part(t_f f, t_flags *s);
+int					decimal_part(char **integer, t_f f, t_flags *s);
 int					print(char **decimal, char **integer, t_flags *s,
 	int sign);
 int					get_width(char *str);

@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 15:12:15 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/30 18:47:09 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/30 22:15:05 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,11 @@ int		is_nan_inf(const char **format, long double db)
 	return (3);
 }
 
-t_f		*malloc_struct(t_f *f, short bigl)
-{
-	f->binary = bigl ? (char *)ft_memalloc(sizeof(char) * 129) :
-		(char *)ft_memalloc(sizeof(char) * 65);
-}
-
 int		ft_conv_f(const char **format, va_list valist, t_flags *s)
 {
 	int			ret;
-	int			sign;
-	t_f			*f;
+	t_f			f;
 
-	f = malloc_strcut(f, s->bigl);
 	f.db = s->bigl ? va_arg(valist, long double) :
 		(double)va_arg(valist, double);
 	if (f.db != f.db || f.db == (1.0 / 0.0) || f.db == -(1.0 / 0.0))
@@ -110,7 +102,7 @@ int		ft_conv_f(const char **format, va_list valist, t_flags *s)
 			!(f.mant = (char *)ft_memalloc(sizeof(char) * 64)))
 			return (0);
 		f.exp_i = get_binary_bigl(f.db, &f.binary, &f.exp, &f.mant);
-		sign = f.binary[48] == '1' ? -1 : 0;
+		f.sign = f.binary[48] == '1' ? -1 : 0;
 	}
 	else
 	{
@@ -118,10 +110,10 @@ int		ft_conv_f(const char **format, va_list valist, t_flags *s)
 			!(f.mant = (char *)ft_memalloc(sizeof(char) * 53)))
 			return (0);
 		f.exp_i = get_binary(f.db, &f.binary, &f.exp, &f.mant);
-		sign = f.binary[0] != '0' ? -1 : 0;
+		f.sign = f.binary[0] != '0' ? -1 : 0;
 	}
 	f.isint = f.exp_i >= 0 ? 1 : 0;
-	ret = integer_part(f, s, sign);
+	ret = integer_part(f, s);
 	(*F)++;
 	free(f.binary);
 	free(f.exp);

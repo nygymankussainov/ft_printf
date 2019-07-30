@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 12:28:59 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/30 17:02:55 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/30 22:14:58 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	small_int(char **mant, int *exp_i, char **res)
 	}
 }
 
-int		integer_part(t_f f, t_flags *s, int sign)
+int		integer_part(t_f f, t_flags *s)
 {
 	int		i;
 	int		ret;
@@ -86,14 +86,14 @@ int		integer_part(t_f f, t_flags *s, int sign)
 		f.mant += f.exp_i == -1022 || f.exp_i == -16382 ? 1 : 0;
 		res = ft_strnew(1);
 		res[0] = '0';
-		ret = decimal_part(&res, f, s, sign);
+		ret = decimal_part(&res, f, s);
 	}
 	else
 	{
 		f.mant += s->bigl ? 1 : 0;
 		f.exp_i >= 64 ? big_int(&f.mant, &f.exp_i, &res) :
 			small_int(&f.mant, &f.exp_i, &res);
-		ret = decimal_part(&res, f, s, sign);
+		ret = decimal_part(&res, f, s);
 	}
 	return (ret);
 }

@@ -119,11 +119,12 @@ int		iszeroes(char *mant)
 	return (1);
 }
 
-int		decimal_part(char **integer, t_f f, t_flags *s, int sign)
+int		decimal_part(char **integer, t_f f, t_flags *s)
 {
 	int		len;
 	char	*res;
 	char	*n1;
+	char	*tmp_mant;
 
 	if (f.isint && *f.mant && s->bigl)
 	{
@@ -136,7 +137,7 @@ int		decimal_part(char **integer, t_f f, t_flags *s, int sign)
 	if (!*f.mant || iszeroes(f.mant))
 	{
 		res = ft_strnew(0);
-		return (print(&res, integer, s, sign));
+		return (print(&res, integer, s, f.sign));
 	}
 	if (f.isint && *f.mant && !s->bigl)
 	{
@@ -149,16 +150,13 @@ int		decimal_part(char **integer, t_f f, t_flags *s, int sign)
 	}
 	f.mant += s->bigl ? 1 : 0;
 	if (s->bigl)
-	{
-		n1 = ft_strdup(f.mant);
-		n1 = ft_strjoin(n1, "1", 1, 0);
-		// free(f.mant);
-		f.mant = ft_strdup(n1);
-		free(n1);
-	}
-	len = get_length(f.mant, f.exp_i);
+		tmp_mant = ft_strjoin(f.mant, "1", 0, 0);
+	else
+		tmp_mant = ft_strdup(f.mant);
+	len = get_length(tmp_mant, f.exp_i);
 	res = get_initial_number(len, f.exp_i, &n1);
 	f.exp_i--;
-	get_ret(f.mant, &res, f.exp_i, &n1);
-	return (print(&res, integer, s, sign));
+	get_ret(tmp_mant, &res, f.exp_i, &n1);
+	free(tmp_mant);
+	return (print(&res, integer, s, f.sign));
 }
