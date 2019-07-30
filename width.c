@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   width.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 15:46:28 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/29 21:13:35 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/30 06:52:07 by nygymankuss      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,42 +40,42 @@ int		get_width(char *str)
 	return (width);
 }
 
-int		width(char *str, t_printf s, int ret)
+int		width(char *str, t_flags *s, int ret)
 {
-	if (s.pos && s.zero)
+	if (s->pos && s->zero)
 		write(1, "+", 1);
-	else if (s.neg)
+	else if (s->neg)
 	{
-		if (s.pos)
+		if (s->pos)
 			write(1, "+", 1);
 		ft_putstr(str);
 	}
-	s.width -= ret;
-	if (s.width > 0)
+	s->width -= ret;
+	// if (s->whitesp && !s->zero)
+	// {
+	// 	ft_putchar(' ');
+	// }
+	// else if (s->width > 0 && s->whitesp && s->zero)
+	// {
+	// 	s->width++;
+	// 	ret--;
+	// }
+	if (s->width > 0)
 	{
-		ret += s.width;
-		while (s.width--)
+		ret += s->width;
+		while (s->width--)
 		{
-			if (!s.zero)
+			if (!s->zero)
 				ft_putchar(' ');
 			else
-			{
-				if (str[0] == '-' && s.pos)
-				{
-					write(1, "-", 1);
-					str++;
-				}
 				ft_putchar('0');
-			}
 		}
 	}
-	if (s.pos && !s.neg)
+	if ((s->pos && !s->neg) || (!s->pos && !s->neg))
 	{
-		if (!s.zero)
+		if (s->pos && !s->neg && !s->zero)
 			write(1, "+", 1);
 		ft_putstr(str);
 	}
-	if (!s.pos && !s.neg)
-		ft_putstr(str);
 	return (ret);
 }

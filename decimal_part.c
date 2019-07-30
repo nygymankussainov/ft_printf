@@ -119,7 +119,7 @@ int		iszeroes(char *mant)
 	return (1);
 }
 
-int		decimal_part(char **integer, t_f f, t_printf *s, int sign)
+int		decimal_part(char **integer, t_f f, t_flags *s, int sign)
 {
 	int		len;
 	char	*res;

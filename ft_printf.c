@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:57:32 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/29 23:02:22 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/30 07:08:17 by nygymankuss      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ short		fl_length(char *str, char c)
 	return (i);
 }
 
-void		ft_fill_struct(const char *format, int i, t_printf *s)
+void		ft_fill_struct(const char *format, int i, t_flags *s)
 {
 	char		*str;
 
@@ -43,13 +43,13 @@ void		ft_fill_struct(const char *format, int i, t_printf *s)
 		s->bigl = str[i] == 'L' ? 1 : s->bigl;
 		i++;
 	}
-	s->width = get_width(str);
+	s->width += get_width(str);
 	s->l = fl_length(str, 'l');
 	s->h = fl_length(str, 'h');
 	free(str);
 }
 
-int			ft_conv(const char **format, va_list valist, t_printf *s)
+int			ft_conv(const char **format, va_list valist, t_flags *s)
 {
 	int		ret;
 
@@ -58,7 +58,7 @@ int			ft_conv(const char **format, va_list valist, t_printf *s)
 	if (ft_strchr("diouxXpfF", **F) && *F)
 		ret = ft_number(F, valist, s);
 	else if (ft_strchr("sc", **F) && **F)
-		ret = ft_symbol(F, valist, *s);
+		ret = ft_symbol(F, valist, s);
 	else
 	{
 		if (s->width)
@@ -78,17 +78,18 @@ int			ft_percent(const char **format, va_list valist)
 {
 	int			ret;
 	int			i;
-	t_printf	*s;
+	t_flags		*s;
 
-	if (!(s = (t_printf *)ft_memalloc(sizeof(t_printf))))
+	if (!(s = (t_flags *)ft_memalloc(sizeof(t_flags))))
 		return (0);
 	i = 0;
 	(*F)++;
 	while (iswhitesp(**F))
 	{
-		ft_putchar(**F);
+		if ((*F)[0] == '0' || (((*F)[0] == '-' && (*F)[1] == '0')))
+			s->width++;
+		ret--;
 		(*F)++;
-		ret++;
 	}
 	s->prec = 6;
 	while (ft_strchr(".-+#lLh0123456789", *(*F + i)) && *(F + i))
@@ -96,7 +97,7 @@ int			ft_percent(const char **format, va_list valist)
 	if (i)
 		ft_fill_struct(*F, i, s);
 	*F += i;
-	s->width -= ret;
+	// s->width -= ret;
 	ret += ft_conv(F, valist, s);
 	free(s);
 	return (ret);

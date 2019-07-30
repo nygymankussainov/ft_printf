@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rounding_and_print.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:18:47 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/29 22:58:44 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/30 06:52:43 by nygymankuss      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	rounding(char **decimal, char **integer, int prec)
 	(*decimal)[prec] = '\0';
 }
 
-int		print(char **decimal, char **integer, t_printf *s, int sign)
+int		print(char **decimal, char **integer, t_flags *s, int sign)
 {
 	int		ret;
 	char	*res;
@@ -82,9 +82,11 @@ int		print(char **decimal, char **integer, t_printf *s, int sign)
 			res = ft_strjoin(res, "0", 1, 0);
 	}
 	if (s->width)
-		ret = width(res, *s, ret);
+		ret = width(res, s, ret);
 	else
 	{
+		// while (s->whitesp--)
+		// 	ft_putchar(' ');
 		if (s->pos && sign >= 0)
 			write(1, "+", 1);
 		ft_putstr(res);

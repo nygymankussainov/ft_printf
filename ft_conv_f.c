@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_conv_f.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 15:12:15 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/29 22:52:09 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/30 04:29:04 by nygymankuss      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		is_nan_inf(const char **format, long double db)
 	return (3);
 }
 
-int		ft_conv_f(const char **format, va_list valist, t_printf *s)
+int		ft_conv_f(const char **format, va_list valist, t_flags *s)
 {
 	int			ret;
 	int			sign;

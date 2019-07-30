@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   integer_part.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 12:28:59 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/29 22:51:49 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/30 04:29:23 by nygymankuss      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	small_int(char **mant, int *exp_i, char **res)
 	}
 }
 
-int		integer_part(t_f f, t_printf *s, int sign)
+int		integer_part(t_f f, t_flags *s, int sign)
 {
 	int		i;
 	int		ret;
