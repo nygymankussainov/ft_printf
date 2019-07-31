@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 18:35:16 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/11 15:30:40 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/31 16:02:56 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	*ft_realloc(void *ptr, size_t size)
 		ft_memdel(&ptr);
 		return (newptr);
 	}
-	if (!(newptr = (char *)ft_memalloc(size)))
+	if (!(newptr = (char *)ft_memalloc(size + 1)))
 		return (NULL);
 	if (ptr)
 	{
-		ft_memcpy(newptr, (char *)ptr, size);
+		ft_memcpy(newptr, (char *)ptr, size - 1);
 		ft_memdel(&ptr);
 	}
 	newptr[size - 1] = '0';

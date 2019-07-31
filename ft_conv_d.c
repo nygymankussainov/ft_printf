@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_conv_d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
+/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:43:45 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/30 04:44:19 by nygymankuss      ###   ########.fr       */
+/*   Updated: 2019/07/31 21:39:46 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ int		ft_conv_d(const char **format, va_list valist, t_flags *s)
 {
 	int						ret;
 	char					*str;
-	unsigned long long		nbr;
+	long long				nbr;
+	int						tmp;
 
 	ret = 0;
+	tmp = 0;
 	s->conv = **F;
 	if (s->l == 2)
 		nbr = (long long)va_arg(valist, long long);
@@ -29,16 +31,49 @@ int		ft_conv_d(const char **format, va_list valist, t_flags *s)
 	else if (s->h == 1)
 		nbr = (short)va_arg(valist, int);
 	else
-		nbr = va_arg(valist, int);
-	str = ft_itoa(nbr);
+		nbr = (long long)va_arg(valist, int);
+	s->pos = nbr < 0 ? 0 : s->pos;
+	str = ft_itoa_ll(nbr);
 	ret = s->pos ? ft_strlen(str) + 1 : ft_strlen(str);
+	if (!s->width && s->zero_padd)
+	{
+		s->width = s->zero_padd;
+		s->zero = 1;
+		s->width += nbr < 0 || s->pos ? 1 : 0;
+	}
+	else if (s->width && s->zero_padd)
+	{
+		s->zero_padd += nbr < 0 || s->pos ? 1 : 0;
+		if (s->width > s->zero_padd)
+		{
+			s->width -= s->zero_padd;
+			tmp = s->width;
+			s->width += s->zero_padd;
+		}
+		if (s->width > s->zero_padd && !s->neg)
+		{
+			s->width -= s->zero_padd;
+			while (s->width--)
+				ft_putchar(' ');
+		}
+		s->width = s->zero_padd;
+		s->zero = 1;
+	}
+	if (s->whitesp && !s->pos && str[0] != '-')
+	{
+		ft_putchar(' ');
+		ret++;
+	}
 	if (ret >= s->width)
 	{
 		if (s->pos)
 			write(1, "+", 1);
 		ft_putstr(str);
 	}
-	ret = ret < s->width ? width(str, s, ret) : ret;
+	ret = ret < s->width ? width(str, s, ret) + tmp : ret + tmp;
+	if (tmp > 0 && s->neg)
+		while (tmp--)
+			ft_putchar(' ');
 	*F += 1;
 	free(str);
 	return (ret);

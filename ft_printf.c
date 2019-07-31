@@ -6,15 +6,15 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:57:32 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/30 15:45:20 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/31 20:43:03 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-short		fl_length(char *str, char c)
+short		flag_length(char *str, char c)
 {
-	short i;
+	short	i;
 
 	i = 0;
 	while (*str)
@@ -31,11 +31,13 @@ void		ft_fill_struct(const char *format, int i, t_flags *s)
 	char		*str;
 
 	str = ft_strnew(i);
-	str = ft_strcpy(str, F);
+	str = ft_strncpy(str, F, i);
+	str[i] = '\0';
 	i = 0;
 	while (str[i])
 	{
 		s->prec = str[i] == '.' ? ft_atoi(str + i + 1) : s->prec;
+		s->zero_padd = str[i] == '.' ? ft_atoi(str + i + 1) : s->zero_padd;
 		s->hash = str[i] == '#' ? 1 : s->hash;
 		s->zero = str[i] == '0' && str[i - 1] != '.' ? 1 : s->zero;
 		s->neg = str[i] == '-' ? 1 : s->neg;
@@ -44,8 +46,8 @@ void		ft_fill_struct(const char *format, int i, t_flags *s)
 		i++;
 	}
 	s->width += get_width(str);
-	s->l = fl_length(str, 'l');
-	s->h = fl_length(str, 'h');
+	s->l = flag_length(str, 'l');
+	s->h = flag_length(str, 'h');
 	free(str);
 }
 

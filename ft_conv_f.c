@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 15:12:15 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/30 22:15:05 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/31 12:12:20 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,22 @@ int		is_nan_inf(const char **format, long double db)
 	return (3);
 }
 
+void	create_strcut(char **exp, char **mant, int bigl)
+{
+	if (bigl)
+	{
+		if (!(*exp = (char *)ft_memalloc(sizeof(char) * 16)) ||
+			!(*mant = (char *)ft_memalloc(sizeof(char) * 64)))
+			return ;
+	}
+	else
+	{
+		if (!(*exp = (char *)ft_memalloc(sizeof(char) * 12)) ||
+			!(*mant = (char *)ft_memalloc(sizeof(char) * 53)))
+			return ;
+	}
+}
+
 int		ft_conv_f(const char **format, va_list valist, t_flags *s)
 {
 	int			ret;
@@ -96,19 +112,14 @@ int		ft_conv_f(const char **format, va_list valist, t_flags *s)
 		(double)va_arg(valist, double);
 	if (f.db != f.db || f.db == (1.0 / 0.0) || f.db == -(1.0 / 0.0))
 		return (is_nan_inf(F, f.db));
+	create_strcut(&f.exp, &f.mant, s->bigl);
 	if (s->bigl)
 	{
-		if (!(f.exp = (char *)ft_memalloc(sizeof(char) * 16)) ||
-			!(f.mant = (char *)ft_memalloc(sizeof(char) * 64)))
-			return (0);
 		f.exp_i = get_binary_bigl(f.db, &f.binary, &f.exp, &f.mant);
 		f.sign = f.binary[48] == '1' ? -1 : 0;
 	}
 	else
 	{
-		if (!(f.exp = (char *)ft_memalloc(sizeof(char) * 12)) ||
-			!(f.mant = (char *)ft_memalloc(sizeof(char) * 53)))
-			return (0);
 		f.exp_i = get_binary(f.db, &f.binary, &f.exp, &f.mant);
 		f.sign = f.binary[0] != '0' ? -1 : 0;
 	}

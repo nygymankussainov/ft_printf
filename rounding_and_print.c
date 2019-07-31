@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:18:47 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/30 16:56:09 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/31 19:25:53 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,66 @@ int		ifnine(char **decimal, char **integer, int prec)
 
 void	rounding(char **decimal, char **integer, int prec)
 {
-	int		tmp;
 	int		i;
+	int		tmp;
 
-	tmp = prec;
-	if ((*decimal)[prec] >= '5' && prec > 0)
+	if (prec == 0 && (*decimal)[prec] > '5')
+		longadd(*integer, "1", integer);
+	if (prec <= ft_strlen(*decimal))
 	{
-		if ((*decimal)[tmp] == '9')
-			tmp = ifnine(decimal, integer, tmp);
-		else if ((*decimal)[tmp - 1] == '9')
-			tmp = ifnine(decimal, integer, tmp - 1);
-		else if ((*decimal)[tmp] < '9' && prec > 0)
+		tmp = prec;
+		if ((*decimal)[prec] >= '5' && prec > 0)
 		{
-			i = tmp == prec ? 1 : 0;
-			if (!(*decimal)[tmp + i])
-				(*decimal)[tmp - i]--;
-			else
-				(*decimal)[tmp - i]++;
+			if ((*decimal)[tmp] == '9')
+				tmp = ifnine(decimal, integer, tmp);
+			else if ((*decimal)[tmp - 1] == '9')
+				tmp = ifnine(decimal, integer, tmp - 1);
+			else if ((*decimal)[tmp] < '9' && prec > 0)
+			{
+				i = tmp == prec ? 1 : 0;
+				if (!(*decimal)[tmp + i])
+					(*decimal)[tmp - i]--;
+				else
+					(*decimal)[tmp - i]++;
+			}
 		}
+		(*decimal)[prec] = '\0';
 	}
-	else if (prec == 0 && (*decimal)[prec])
+}
+
+int		put_zeroes_and_space(t_flags *s, char *decimal, char **res, int sign)
+{
+	int	ret;
+	int	len;
+
+	ret = 0;
+	len = ft_strlen(decimal);
+	if (s->prec && (s->prec > len || !*decimal))
 	{
-		if ((*decimal)[prec] > '5')
-			longadd(*integer, "1", integer);
+		s->prec = s->prec - len;
+		ret = s->prec > 0 ? s->prec : 0;
+		while (s->prec--)
+			*res = ft_strjoin(*res, "0", 1, 0);
 	}
-	(*decimal)[prec] = '\0';
+	if (s->whitesp && sign >= 0 && !s->pos)
+	{
+		ft_putchar(' ');
+		ret++;
+	}
+	return (ret);
+}
+
+int		print_width(t_flags *s, char *res, int sign, int ret)
+{
+	if (s->width)
+		ret = width_for_f(res, s, ret);
+	else
+	{
+		if (s->pos && sign >= 0)
+			write(1, "+", 1);
+		ft_putstr(res);
+	}
+	return (ret);
 }
 
 int		print(char **decimal, char **integer, t_flags *s, int sign)
@@ -71,26 +106,8 @@ int		print(char **decimal, char **integer, t_flags *s, int sign)
 	else
 		res = sign < 0 ? ft_strjoin("-", res, 0, 1) : res;
 	ret += ft_strlen(res);
-	if (s->prec && (!(*decimal)[s->prec] || !**decimal))
-	{
-		s->prec = s->prec - ft_strlen(*decimal);
-		ret += s->prec > 0 ? s->prec : 0;
-		while (s->prec--)
-			res = ft_strjoin(res, "0", 1, 0);
-	}
-	if (s->whitesp && sign >= 0 && !s->pos)
-	{
-		ft_putchar(' ');
-		ret++;
-	}
-	if (s->width)
-		ret = width(res, s, ret);
-	else
-	{
-		if (s->pos && sign >= 0)
-			write(1, "+", 1);
-		ft_putstr(res);
-	}
+	ret += put_zeroes_and_space(s, *decimal, &res, sign);
+	ret = print_width(s, res, sign, ret);
 	free(*decimal);
 	free(res);
 	return (ret);

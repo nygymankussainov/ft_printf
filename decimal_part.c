@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   decimal_part.c                                    :+:      :+:    :+:   */
+/*   decimal_part.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/19 12:54:57 by nygymankuss       #+#    #+#             */
-/*   Updated: 2019/07/23 20:49:34 by vhazelnu         ###   ########.fr       */
+/*   Created: 2019/07/31 12:14:28 by vhazelnu          #+#    #+#             */
+/*   Updated: 2019/07/31 16:52:07 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		get_length(char *mant, int exp_i)
 	return (j + 1);
 }
 
-void	put_zeroes(char *n1, char **res, int exp_i)
+void	prepare_number(char *n1, char **res, int exp_i)
 {
 	int		i;
 	int		j;
@@ -57,58 +57,7 @@ void	put_zeroes(char *n1, char **res, int exp_i)
 	}
 }
 
-char	*get_initial_number(int len, int exp_i, char **n1)
-{
-	int		i;
-	char	*res;
-	char	*n2;
-
-	if (!(res = (char *)ft_memalloc(sizeof(char) * (len + 1))) ||
-		!(*n1 = (char *)ft_memalloc(sizeof(char) * 16382)))
-		return (0);
-	ft_bzero(res, len);
-	i = 1;
-	n2 = ft_itoa(ft_power(5, 0));
-	longmulti(n2, "5", n1);
-	free(n2);
-	while (i++ < -exp_i)
-	{
-		if (!(n2 = (char *)ft_memalloc(sizeof(char) * ft_strlen(*n1) + 1)))
-			return (NULL);
-		n2 = ft_strcpy(n2, *n1);
-		longmulti(n2, "5", n1);
-		free(n2);
-	}
-	put_zeroes(*n1, &res, exp_i);
-	return (res);
-}
-
-void	get_ret(char *mant, char **res, int exp_i, char **n1)
-{
-	char	*tmp;
-	int		len;
-
-	len = ft_strlen(*res);
-	if (!(tmp = (char *)ft_memalloc(sizeof(char) * len + 1)))
-		return ;
-	ft_bzero(tmp, len);
-	while (*mant)
-	{
-		longmulti(*n1, "5", n1);
-		if (*mant == '1')
-		{
-			put_zeroes(*n1, &tmp, exp_i);
-			longadd(*res, tmp, res);
-			ft_bzero(tmp, len);
-		}
-		mant++;
-		exp_i--;
-	}
-	free(*n1);
-	free(tmp);
-}
-
-int		iszeroes(char *mant)
+int		is_all_zeroes(char *mant)
 {
 	while (*mant)
 	{
@@ -119,6 +68,17 @@ int		iszeroes(char *mant)
 	return (1);
 }
 
+void	get_to_first_one(char **mant, int bigl, int *exp_i)
+{
+	while (**mant != '1')
+	{
+		(*mant)++;
+		(*exp_i)--;
+	}
+	if (!bigl)
+		(*mant)++;
+}
+
 int		decimal_part(char **integer, t_f f, t_flags *s)
 {
 	int		len;
@@ -127,36 +87,23 @@ int		decimal_part(char **integer, t_f f, t_flags *s)
 	char	*tmp_mant;
 
 	if (f.isint && *f.mant && s->bigl)
-	{
-		while (*f.mant != '1')
-		{
-			f.mant++;
-			f.exp_i--;
-		}
-	}
-	if (!*f.mant || iszeroes(f.mant))
+		get_to_first_one(&f.mant, s->bigl, &f.exp_i);
+	if ((!*f.mant || is_all_zeroes(f.mant)) && f.exp_i != -1022)
 	{
 		res = ft_strnew(0);
 		return (print(&res, integer, s, f.sign));
 	}
 	if (f.isint && *f.mant && !s->bigl)
-	{
-		while (*f.mant != '1')
-		{
-			f.mant++;
-			f.exp_i--;
-		}
-		f.mant++;
-	}
+		get_to_first_one(&f.mant, s->bigl, &f.exp_i);
 	f.mant += s->bigl ? 1 : 0;
-	if (s->bigl)
+	if (s->bigl && f.exp_i != -16382)
 		tmp_mant = ft_strjoin(f.mant, "1", 0, 0);
 	else
 		tmp_mant = ft_strdup(f.mant);
 	len = get_length(tmp_mant, f.exp_i);
 	res = get_initial_number(len, f.exp_i, &n1);
 	f.exp_i--;
-	get_ret(tmp_mant, &res, f.exp_i, &n1);
+	calculate_decimal(tmp_mant, &res, f.exp_i, &n1);
 	free(tmp_mant);
 	return (print(&res, integer, s, f.sign));
 }

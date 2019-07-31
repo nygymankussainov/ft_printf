@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   longmulti.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
+/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 13:19:49 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/19 23:51:58 by nygymankuss      ###   ########.fr       */
+/*   Updated: 2019/07/31 15:06:22 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	longmulti(char *a, const char *b, char **res)
 	int		lb;
 	char	*c;
 
-	if (!(c = (char *)ft_memalloc(sizeof(char) * 16382)))
+	if (!(c = (char *)ft_memalloc(sizeof(char) * 16383)))
 		return ;
 	if (a[0] == '0' || b[0] == '0')
 	{

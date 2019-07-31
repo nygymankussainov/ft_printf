@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 11:09:37 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/06/25 11:10:25 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/07/31 16:06:22 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_revstr(char *str)
 {
-	size_t	i;
+	int		i;
 	char	c;
 	char	*result;
 
