@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:57:32 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/31 20:43:03 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/01 21:27:44 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ void		ft_fill_struct(const char *format, int i, t_flags *s)
 {
 	char		*str;
 
-	str = ft_strnew(i);
-	str = ft_strncpy(str, F, i);
-	str[i] = '\0';
+	str = ft_strnew(i + 1);
+	str = ft_strncpy(str, F, i + 1);
+	str[i + 1] = '\0';
 	i = 0;
 	while (str[i])
 	{
 		s->prec = str[i] == '.' ? ft_atoi(str + i + 1) : s->prec;
 		s->zero_padd = str[i] == '.' ? ft_atoi(str + i + 1) : s->zero_padd;
 		s->hash = str[i] == '#' ? 1 : s->hash;
-		s->zero = str[i] == '0' && str[i - 1] != '.' ? 1 : s->zero;
+		s->zero = str[i] == '0' && !ft_isalpha(str[i + 1]) ? 1 : s->zero;
 		s->neg = str[i] == '-' ? 1 : s->neg;
 		s->pos = str[i] == '+' ? 1 : s->pos;
 		s->bigl = str[i] == 'L' ? 1 : s->bigl;

@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:43:45 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/31 21:39:46 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/01 23:32:43 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,27 @@ int		ft_conv_d(const char **format, va_list valist, t_flags *s)
 	s->pos = nbr < 0 ? 0 : s->pos;
 	str = ft_itoa_ll(nbr);
 	ret = s->pos ? ft_strlen(str) + 1 : ft_strlen(str);
+	s->zero = s->zero_padd ? 0 : s->zero;
+	ret += s->zero_padd == s->width && s->neg && s->pos ? 1 : 0;
+	s->zero_padd = ret >= s->zero_padd ? 0 : s->zero_padd;
+	if (s->neg && s->pos)
+	{
+		write(1, "+", 1);
+		ret--;
+	}
 	if (!s->width && s->zero_padd)
 	{
 		s->width = s->zero_padd;
 		s->zero = 1;
 		s->width += nbr < 0 || s->pos ? 1 : 0;
 	}
-	else if (s->width && s->zero_padd)
+	else if (s->width && s->zero_padd && s->zero_padd > ret)
 	{
 		s->zero_padd += nbr < 0 || s->pos ? 1 : 0;
 		if (s->width > s->zero_padd)
 		{
 			s->width -= s->zero_padd;
-			tmp = s->width;
+			tmp += s->width;
 			s->width += s->zero_padd;
 		}
 		if (s->width > s->zero_padd && !s->neg)
@@ -62,11 +70,18 @@ int		ft_conv_d(const char **format, va_list valist, t_flags *s)
 	if (s->whitesp && !s->pos && str[0] != '-')
 	{
 		ft_putchar(' ');
-		ret++;
+		tmp += s->width && !s->zero_padd && s->neg ? 2 : 1;
+		if (s->width && !s->zero_padd && s->neg)
+		{
+			s->width--;
+			ret++;
+		}
+		if (s->width && !s->zero_padd)
+			s->width--;
 	}
 	if (ret >= s->width)
 	{
-		if (s->pos)
+		if (s->pos && !s->neg)
 			write(1, "+", 1);
 		ft_putstr(str);
 	}

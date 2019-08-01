@@ -6,38 +6,26 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 15:46:28 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/31 19:25:30 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/01 12:49:30 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		get_width(char *str)
+int		print_zero_or_space(int width, int zero, int ret)
 {
-	int width;
-	int	i;
-
-	width = 0;
-	i = 0;
-	while (*str && *str != '.')
+	if (width > 0)
 	{
-		if (ft_isdigit(*str))
+		ret += width;
+		while (width--)
 		{
-			while (str[i] != '.' && !ft_isalpha(str[i]))
-			{
-				if (str[i] == '-' || str[i] == '+')
-				{
-					width = ft_atoi(str + i + 1);
-					return (width);
-				}
-				i++;
-			}
-			width = ft_atoi(str);
-			return (width);
+			if (!zero)
+				ft_putchar(' ');
+			else
+				ft_putchar('0');
 		}
-		str++;
 	}
-	return (width);
+	return (ret);
 }
 
 int		width_for_f(char *str, t_flags *s, int ret)
@@ -51,17 +39,7 @@ int		width_for_f(char *str, t_flags *s, int ret)
 		ft_putstr(str);
 	}
 	s->width -= ret;
-	if (s->width > 0)
-	{
-		ret += s->width;
-		while (s->width--)
-		{
-			if (!s->zero)
-				ft_putchar(' ');
-			else
-				ft_putchar('0');
-		}
-	}
+	ret = print_zero_or_space(s->width, s->zero, ret);
 	if ((s->pos && !s->neg) || (!s->pos && !s->neg))
 	{
 		if (s->pos && !s->neg && !s->zero)

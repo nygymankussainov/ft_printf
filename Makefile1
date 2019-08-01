@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile1                                          :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/16 11:34:51 by vhazelnu          #+#    #+#              #
-#    Updated: 2019/07/31 19:28:21 by vhazelnu         ###   ########.fr        #
+#    Updated: 2019/08/01 20:00:57 by vhazelnu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,6 @@ CCFL = -Wall -Wextra -Werror
 .PHONY: all clean fclean re
 
 all: $(NAME)
-	make -C libft
 
 $(NAME):
 	gcc -o $(NAME) $(SRCS) libft/libft.a -g
