@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_conv_x.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
+/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:53:37 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/30 04:45:33 by nygymankuss      ###   ########.fr       */
+/*   Updated: 2019/08/02 16:25:59 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		ft_conv_x(const char **format, va_list valist, t_flags *s)
 		}
 		ft_putstr(str);
 	}
-	ret = ret < s->width ? width(str, s, ret) : ret;
+	ret = ret < s->width ? width(str, s, ret, 1) : ret;
 	*F += 1;
 	free(str);
 	return (ret);
