@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 19:27:34 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/02 21:10:00 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/03 11:39:27 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int		get_width(char *str)
 	int width;
 	int	i;
 
-	width = 0;
 	i = 0;
 	while (*str && *str != '.')
 	{
@@ -28,22 +27,18 @@ int		get_width(char *str)
 				if (str[i] == '-' || str[i] == '+')
 				{
 					width = ft_atoi(str + i + 1);
-					if (width < 0)
-						return (-width);
+					width = width < 0 ? -width : width;
 					return (width);
 				}
 				i++;
 			}
 			width = ft_atoi(str);
-			if (width < 0)
-				return (-width);
+			width = width < 0 ? -width : width;
 			return (width);
 		}
 		str++;
 	}
-	if (width < 0)
-		return (-width);
-	return (width);
+	return (0);
 }
 
 void	put_zero_or_space(char **str, int width, int zero)
@@ -65,10 +60,9 @@ void	put_zero_or_space(char **str, int width, int zero)
 		else
 			ft_putchar(' ');
 	}
-
 }
 
-void	put_zero_padd(char **str, int zero_padd)
+void	put_zero_padding(char **str, int zero_padd)
 {
 	while (zero_padd > 0 && zero_padd--)
 	{
@@ -84,42 +78,46 @@ void	put_zero_padd(char **str, int zero_padd)
 	}
 }
 
-int		width(char *str, t_flags *s, int sign, int len)
+void	manage_order_and_print(char *str, t_flags *s)
 {
-	int		ret;
-
-	ret = 0;
-	if (s->pos && sign > 0)
-		if (!s->width)
-			write(1, "+", 1);
-	if (sign < 0)
-		if (!s->width)
-			write(1, "-", 1);
-	ret += (s->pos && sign > 0 && !s->width) || (sign < 0 && !s->width) ? 1 : 0;
-	s->zero_padd += (s->pos && s->neg) || (s->zero_padd > 0 && sign < 0 && s->width) ? 1 : 0;
-	s->zero_padd += s->pos && !s->neg && s->width && sign > 0 ? 1 : 0;
-	s->zero_padd -= s->zero_padd > 0 ? len : 0;
-	s->width -= s->zero_padd > 0 ? len + s->zero_padd : len;
-	ret = s->width > 0 ? s->width : ret;
-	ret += s->zero_padd > 0 ? s->zero_padd : 0;
 	if (!s->neg)
 	{
 		put_zero_or_space(&str, s->width, s->zero);
 		if (s->neg && !s->pos && !s->zero_padd)
 			ft_putstr(str);
-		put_zero_padd(&str, s->zero_padd);
+		put_zero_padding(&str, s->zero_padd);
 		if (s->pos || !s->neg)
 			ft_putstr(str);
 	}
 	else
 	{
-		put_zero_padd(&str, s->zero_padd);
+		put_zero_padding(&str, s->zero_padd);
 		if ((s->neg && !s->pos) || (s->neg && s->pos))
 			ft_putstr(str);
 		put_zero_or_space(&str, s->width, s->zero);
 		if (s->pos && !s->neg)
 			ft_putstr(str);
 	}
-	
+}
+
+int		width(char *str, t_flags *s, int len)
+{
+	int		ret;
+
+	ret = 0;
+	if (s->pos && s->sign > 0 && !s->width)
+		write(1, "+", 1);
+	if (s->sign < 0 && !s->width)
+		write(1, "-", 1);
+	ret += (s->pos && s->sign > 0 && !s->width) ||
+		(s->sign < 0 && !s->width) ? 1 : 0;
+	s->zero_padd += (s->pos && s->neg) || (s->zero_padd > 0 &&
+		s->sign < 0 && s->width) ? 1 : 0;
+	s->zero_padd += s->pos && !s->neg && s->width && s->sign > 0 ? 1 : 0;
+	s->zero_padd -= s->zero_padd > 0 ? len : 0;
+	s->width -= s->zero_padd > 0 ? len + s->zero_padd : len;
+	ret = s->width > 0 ? s->width : ret;
+	ret += s->zero_padd > 0 ? s->zero_padd : 0;
+	manage_order_and_print(str, s);
 	return (ret);
 }
