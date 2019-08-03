@@ -3,24 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_conv_x.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
+/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:53:37 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/03 15:22:15 by nygymankuss      ###   ########.fr       */
+/*   Updated: 2019/08/03 18:16:22 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_conv_x(const char **format, va_list valist, t_flags *s)
+long long	get_nbr_x(const char **format, va_list valist,
+	t_flags *s, char **str)
 {
-	int						ret;
-	int						tmp;
-	char					*str;
-	unsigned long long		nbr;
+	long long	nbr;
 
-	ret = 0;
-	tmp = 0;
+	s->conv = **F;
 	if (s->l == 2)
 		nbr = (unsigned long long)va_arg(valist, unsigned long long);
 	else if (s->l == 1)
@@ -32,31 +29,75 @@ int		ft_conv_x(const char **format, va_list valist, t_flags *s)
 	else
 		nbr = va_arg(valist, unsigned int);
 	if (**F == 'x')
-		str = ft_uitoa_base(nbr, 16, 'x');
+		*str = ft_uitoa_base(nbr, 16, 'x');
 	else
-		str = ft_uitoa_base(nbr, 16, 'X');
-	s->neg = s->hash && s->width && ft_count_digit_ll(nbr, 1) >= s->width ? 0 : s->neg;
-	s->width = s->hash && s->width && ft_count_digit_ll(nbr, 1) >= s->width ? 0 : s->width;
-	s->zero = s->zero_padd ? 0 : s->zero;
-	ret = s->hash && nbr != 0 ? ft_strlen(str) + 2 : ft_strlen(str);
-	if ((s->hash && nbr != 0)|| (s->hash && ret >= s->width && nbr != 0))
+		*str = ft_uitoa_base(nbr, 16, 'X');
+	return (nbr);
+}
+
+void		write_or_join(char **str, char conv, char key)
+{
+	if (key == 'w')
 	{
-		if (ret >= s->width && nbr != 0)
+		if (conv == 'X')
+			write(1, "0X", 2);
+		else
+			write(1, "0x", 2);
+	}
+	else if (key == 'j')
+	{
+		if (conv == 'X')
+			*str = ft_strjoin("0X", *str, 0, 1);
+		else
+			*str = ft_strjoin("0x", *str, 0, 1);
+	}
+}
+
+int			print_0x(char **str, t_flags *s, int ret, long long nbr)
+{
+	int		tmp;
+
+	tmp = 0;
+	if ((s->hash && nbr != 0) || (s->hash && ret >= s->width && nbr != 0))
+	{
+		if ((ret >= s->width && nbr != 0) || (((s->zero_padd && s->zero_padd >
+			ft_count_digit_ll(nbr, 1)) || s->zero) && s->width && s->hash))
 		{
-			tmp = 2;
-			if (**F == 'X')
-				write(1, "0X", 2);
-			else
-				write(1, "0x", 2);
+			if (s->width && s->hash)
+				s->width -= 2;
+			if (s->width && s->zero_padd && s->hash && !s->neg)
+			{
+				ft_putchar(' ');
+				s->width--;
+				tmp++;
+			}
+			tmp += 2;
+			write_or_join(str, s->conv, 'w');
 		}
 		else
-		{
-			if (**F == 'X')
-				str = ft_strjoin("0X", str, 0, 1);
-			else
-				str = ft_strjoin("0x", str, 0, 1);
-		}
+			write_or_join(str, s->conv, 'j');
 	}
+	return (tmp);
+}
+
+int			ft_conv_x(const char **format, va_list valist, t_flags *s)
+{
+	int						ret;
+	int						tmp;
+	char					*str;
+	long long				nbr;
+
+	ret = 0;
+	tmp = 0;
+	nbr = get_nbr_x(F, valist, s, &str);
+	*str = nbr == 0 && !s->zero_padd && s->dot ? '\0' : *str;
+	s->neg = s->hash && s->width && ft_count_digit_ll(nbr, 1) >= s->width
+		? 0 : s->neg;
+	s->width = s->hash && s->width && ft_count_digit_ll(nbr, 1) >= s->width
+		? 0 : s->width;
+	s->zero = s->zero_padd ? 0 : s->zero;
+	ret = s->hash && nbr != 0 ? ft_strlen(str) + 2 : ft_strlen(str);
+	tmp = print_0x(&str, s, ret, nbr);
 	ret = manage_width(str, s) + tmp;
 	*F += 1;
 	free(str);

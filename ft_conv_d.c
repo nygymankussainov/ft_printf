@@ -6,13 +6,13 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:43:45 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/03 11:23:09 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/03 18:03:19 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-long long	get_nbr(const char **format, va_list valist, t_flags *s)
+long long	get_nbr_d(const char **format, va_list valist, t_flags *s)
 {
 	long long	nbr;
 
@@ -86,7 +86,7 @@ int			ft_conv_d(const char **format, va_list valist, t_flags *s)
 	char					*str;
 	long long				nbr;
 
-	nbr = get_nbr(F, valist, s);
+	nbr = get_nbr_d(F, valist, s);
 	s->sign = nbr < 0 ? -1 : 1;
 	nbr = s->sign < 0 ? -nbr : nbr;
 	str = ft_itoa_ll(nbr);
