@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_conv_o.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:51:47 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/03 12:45:56 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/03 14:30:33 by nygymankuss      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,18 @@ int		ft_conv_o(const char **format, va_list valist, t_flags *s)
 	else if (s->l == 1)
 		nbr = (long)va_arg(valist, long);
 	else if (s->h == 2)
-		nbr = (char)va_arg(valist, int);
+		nbr = (unsigned char)va_arg(valist, int);
 	else if (s->h == 1)
 		nbr = (unsigned short)va_arg(valist, unsigned int);
 	else
 		nbr = va_arg(valist, unsigned int);
 	str = ft_itoa_base(nbr, 8);
-	if (!s->zero && s->hash)
+	*str = nbr == 0 && !s->zero_padd && s->dot ? '\0' : *str;
+	if (s->hash && (nbr != 0 || (s->dot && nbr == 0)))
 		str = ft_strjoin("0", str, 0 , 1);
 	s->zero = s->zero_padd ? 0 : s->zero;
 	ret = s->hash ? ft_strlen(str) + 1 : ft_strlen(str);
-	// if (ret >= s->width)
-	// {
-	// 	if (s->hash == 1)
-	// 		write(1, "0", 1);
-	// 	else if (s->hash == 2)
-	// 		write(1, "+", 1);
-	// 	ft_putstr(str);
-	// }
 	ret = manage_width(str, s);
-	// ret += ret < s->width ? width(str, s, ret) : 0;
 	*F += 1;
 	free(str);
 	return (ret);
