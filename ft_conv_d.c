@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:43:45 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/03 18:03:19 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/03 21:48:14 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ long long	get_nbr_d(const char **format, va_list valist, t_flags *s)
 
 int			ifwhitesp(t_flags *s, int *tmp, int key, int ret)
 {
+	if (s->whitesp && s->zero_padd && s->width > ret
+		&& s->zero_padd > ret && s->zero_padd > s->width)
+	{
+		(*tmp)++;
+		ft_putchar(' ');
+	}
 	if (s->whitesp && (s->width <= ret || s->neg ||
 		(key && !s->zero_padd) || (s->width && s->zero))
 		&& s->sign > 0 && !s->pos)

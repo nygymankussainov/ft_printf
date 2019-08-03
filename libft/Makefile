@@ -6,7 +6,7 @@
 #    By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/04 12:58:50 by vhazelnu          #+#    #+#              #
-#    Updated: 2019/07/31 18:43:04 by vhazelnu         ###   ########.fr        #
+#    Updated: 2019/08/03 18:23:25 by vhazelnu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC = ft_memmove.c ft_strcmp.c ft_strncpy.c ft_itoa.c ft_memset.c ft_strcpy.c ft
 	  ft_range.c ft_strmap.c ft_strtrim.c ft_isprint.c ft_memcmp.c ft_strcat.c ft_strmapi.c ft_tolower.c ft_isupper.c \
 	  ft_memcpy.c ft_strchr.c ft_strncat.c ft_toupper.c ft_memdel.c ft_strclr.c ft_strncmp.c get_next_line.c ft_is_negative.c \
 	  ft_sqrt.c ft_iterative_factorial.c ft_iterative_power.c ft_uitoa_base.c ft_itoa_base.c ft_atoi_base.c ft_power.c ft_swap.c \
-	  ft_swap_str.c ft_power_db.c ft_putstr.c ft_realloc.c ft_bzero_null.c ft_iswhitesp.c ft_revstr.c
+	  ft_swap_str.c ft_power_db.c ft_putstr.c ft_realloc.c ft_bzero_null.c ft_skip_whitesp.c ft_revstr.c ft_itoa_ll.c iswhitesp.c
 
 OBJECTS = $(SRC:.c=.o)
 

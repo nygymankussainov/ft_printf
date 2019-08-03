@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_iswhitesp.c                                     :+:      :+:    :+:   */
+/*   ft_skip_whitesp.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 22:03:06 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/29 22:04:47 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/03 18:24:08 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_iswhitesp(const char *str)
+size_t	ft_skip_whitesp(const char *str)
 {
 	int	i;
 

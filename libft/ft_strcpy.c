@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nygymankussainov <nygymankussainov@stud    +#+  +:+       +#+        */
+/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 19:32:06 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/19 13:38:03 by nygymankuss      ###   ########.fr       */
+/*   Updated: 2019/08/03 22:06:41 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,11 +6,19 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 11:36:43 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/28 18:24:47 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/03 22:12:38 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+void	ft_free(char const **s1, const char **s2, int f, int s)
+{
+	if (f)
+		free((char *)*s1);
+	if (s)
+		free((char *)*s2);
+}
 
 char	*ft_strjoin(char const *s1, const char *s2, int f, int s)
 {
@@ -36,9 +44,6 @@ char	*ft_strjoin(char const *s1, const char *s2, int f, int s)
 		str = ft_strcpy(str, ((char *)s1));
 	else if (s2)
 		str = ft_strcpy(str, ((char *)s2));
-	if (f)
-		free((char *)s1);
-	if (s)
-		free((char *)s2);
+	ft_free(&s1, &s2, f, s);
 	return (str);
 }

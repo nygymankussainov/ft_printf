@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:02:01 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/03 12:33:50 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/03 21:53:03 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct		s_flags
 }					t_flags;
 
 int					ft_printf(const char *format, ...);
+int					find_conv(const char *s);
+void				find_whitesp(const char **format, t_flags *s);
 int					ft_conv_s(const char **format, va_list valist, t_flags *s);
 int					ft_conv_c(const char **format, va_list valist, t_flags *s);
 int					ft_conv_o(const char **format, va_list valist, t_flags *s);
@@ -78,8 +80,5 @@ int					get_width(char *str);
 void				longadd(char *s1, char *s2, char **res2);
 void				longmulti(char *a, const char *b, char **c);
 void				longdiv(char *number, int divisor, char **res);
-int					iswhitesp(char c);
-char				*ft_itoa_ll(long long n);
-int					ft_count_digit_ll(long long n, int len);
 
 #endif

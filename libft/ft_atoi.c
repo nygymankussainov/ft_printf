@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 13:58:14 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/29 22:04:35 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/03 18:25:05 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				ft_atoi(const char *str)
 	i = 0;
 	result = 0;
 	sign = 1;
-	i = ft_iswhitesp(str);
+	i = ft_skip_whitesp(str);
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')

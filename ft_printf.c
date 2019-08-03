@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:57:32 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/03 12:27:52 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/03 21:52:27 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ int			ft_conv(const char **format, va_list valist, t_flags *s)
 		*F += 1;
 		ret++;
 	}
+	free(s);
 	return (ret);
 }
 
 int			ft_percent(const char **format, va_list valist)
 {
-	int			ret;
 	int			i;
 	t_flags		*s;
 
@@ -86,26 +86,22 @@ int			ft_percent(const char **format, va_list valist)
 		return (0);
 	i = 0;
 	(*F)++;
-	while (iswhitesp(**F) || ((**F == '-' || **F == '+')
-		&& *(*F + 1) != ft_isdigit(*(*F + 1))))
-	{
-		if (iswhitesp(**F))
-			s->whitesp++;
-		else if (**F == '-')
-			s->neg = 1;
-		else if (**F == '+')
-			s->pos = 1;
-		(*F)++;
-	}
+	find_whitesp(F, s);
+	s->whitesp = s->whitesp > 1 ? 1 : s->whitesp;
 	s->prec = 6;
 	while (ft_strchr(".-+#lLh0123456789", *(*F + i)) && *(F + i))
 		i++;
 	if (i)
 		ft_fill_struct(*F, i, s);
-	*F += i;
-	ret = ft_conv(F, valist, s);
-	free(s);
-	return (ret);
+	if (find_conv(*F))
+		*F += i;
+	else
+	{
+		(*F)++;
+		free(s);
+		return (0);
+	}
+	return (ft_conv(F, valist, s));
 }
 
 int			ft_printf(const char *format, ...)

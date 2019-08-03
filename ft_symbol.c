@@ -6,34 +6,65 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 10:27:31 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/03 11:24:46 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/03 21:58:19 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int		print_string(va_list valist, t_flags *s)
+{
+	char	*str;
+	int		ret;
+	int		tmp;
+
+	str = va_arg(valist, char *);
+	if (!str)
+		str = s->dot && !s->zero_padd ? strdup("(null).") :
+			strdup("(null)");
+	else
+		str = ft_strndup(str, ft_strlen(str));
+	*str = s->dot && !s->zero_padd ? '\0' : *str;
+	ret = ft_strlen(str);
+	if (s->zero_padd && s->zero_padd <= ret)
+	{
+		str[s->zero_padd] = '\0';
+		tmp = ret;
+		ret = ret - tmp + ft_strlen(str);
+	}
+	else
+		s->zero_padd = 0;
+	if (ret >= s->width)
+		ft_putstr(str);
+	ret += ret < s->width ? width(str, s, ret) : 0;
+	free(str);
+	return (ret);
+}
 
 int		ft_symbol(const char **format, va_list valist, t_flags *s)
 {
 	char	*str;
 	char	sym;
 	int		ret;
+	int		tmp;
 
-	ret = 0;
+	ret = 1;
 	s->conv = **F;
-	if (**F == 's')
-	{
-		str = va_arg(valist, char *);
-		ret = ft_strlen(str);
-		if (ret >= s->width)
-			ft_putstr(str);
-		ret = ret < s->width ? width(str, s, ret) : ret;
-	}
+	s->zero = 0;
+	if (s->conv == 's')
+		ret = print_string(valist, s);
 	else
 	{
 		sym = (char)va_arg(valist, int);
-		if (ret >= s->width)
+		str = ft_strnew(1);
+		str[0] = sym;
+		if (ret >= s->width || ((s->neg || ret >= s->width)
+			&& !sym && s->width))
 			ft_putchar(sym);
-		ret = ret < s->width ? width(&sym, s, 1) : ret + 1;
+		ret += ret < s->width ? width(str, s, ret) : 0;
+		if (!sym && s->width && (ret <= s->width || !s->neg))
+			write(1, &sym, 1);
+		free(str);
 	}
 	*F += 1;
 	return (ret);
