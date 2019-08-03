@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:02:01 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/03 11:24:03 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/03 12:33:50 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int					ft_symbol(const char **format, va_list valist, t_flags *is);
 int					get_width(char *str);
 int					width_for_f(char *str, t_flags *s, int ret);
 int					width(char *str, t_flags *s, int len);
+int					manage_width(char *str, t_flags *s);
+int					print_zero_or_space(int width, int zero, int ret);
 int					integer_part(t_f f, t_flags *s);
 int					decimal_part(char **integer, t_f f, t_flags *s);
 void				prepare_number(char *n1, char **res, int exp_i);

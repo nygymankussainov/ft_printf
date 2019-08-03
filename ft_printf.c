@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:57:32 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/02 21:12:06 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/03 12:27:52 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,12 @@ int			ft_conv(const char **format, va_list valist, t_flags *s)
 		ret = ft_symbol(F, valist, s);
 	else
 	{
-		if (s->width)
-		{
-			ret += --s->width;
-			while (s->width--)
-				write(1, " ", 1);
-		}
+		s->zero = s->neg ? 0 : s->zero;
+		if (s->width && !s->neg)
+			ret = print_zero_or_space(--s->width, s->zero, ret);
 		ft_putchar(**F);
+		if (s->width && s->neg)
+			ret = print_zero_or_space(--s->width, s->zero, ret);
 		*F += 1;
 		ret++;
 	}
