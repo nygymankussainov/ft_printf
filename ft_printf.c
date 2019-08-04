@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:57:32 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/04 14:10:54 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/04 14:56:52 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int			ft_conv(const char **format, va_list valist, t_flags *s)
 
 int			ft_percent(const char **format, va_list valist)
 {
-	int			valid;
 	int			i;
 	t_flags		*s;
 
@@ -94,12 +93,10 @@ int			ft_percent(const char **format, va_list valist)
 		i++;
 	if (i)
 		ft_fill_struct(*F, i, s);
-	valid == find_conv(*F);
-	if (valid == 1)
+	if (find_conv(*F))
 		*F += i;
 	else
 	{
-		*F += valid == 2 ? 1 : 0;
 		free(s);
 		return (0);
 	}
