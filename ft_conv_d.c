@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:43:45 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/03 21:48:14 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/04 12:19:02 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ int			ft_conv_d(const char **format, va_list valist, t_flags *s)
 {
 	int						ret;
 	char					*str;
-	long long				nbr;
+	__int128_t				nbr;
 
 	nbr = get_nbr_d(F, valist, s);
 	s->sign = nbr < 0 ? -1 : 1;
 	nbr = s->sign < 0 ? -nbr : nbr;
 	str = ft_itoa_ll(nbr);
-	s->zero = s->zero_padd ? 0 : s->zero;
+	s->zero = s->zero_padd || (s->neg && s->zero) ? 0 : s->zero;
 	*str = nbr == 0 && !s->zero_padd && s->dot ? '\0' : *str;
 	s->pos = s->neg && s->pos && s->sign < 0 ? 0 : s->pos;
 	str = s->sign < 0 && s->width ? ft_strjoin("-", str, 0, 1) : str;

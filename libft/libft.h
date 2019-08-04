@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 20:06:51 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/03 22:03:25 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/04 12:20:45 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ char					*ft_strjoin(char const *s1, char const *s2,
 	int f, int s);
 char					*ft_strtrim(char const *s);
 char					**ft_strsplit(char const *s, char c);
-char					*ft_itoa_ll(long long n);
-int						ft_count_digit_ll(long long n, int len);
+char					*ft_itoa_ll(__int128_t n);
+int						ft_count_digit_ll(__int128_t n, int len);
 char					*ft_itoa(int n);
 char					*ft_itoa_base(long long nb, int base);
 char					*ft_uitoa_base(unsigned long long nb, int base, char c);

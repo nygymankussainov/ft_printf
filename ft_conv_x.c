@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:53:37 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/03 18:16:22 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/04 12:09:10 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int			ft_conv_x(const char **format, va_list valist, t_flags *s)
 		? 0 : s->neg;
 	s->width = s->hash && s->width && ft_count_digit_ll(nbr, 1) >= s->width
 		? 0 : s->width;
-	s->zero = s->zero_padd ? 0 : s->zero;
+	s->zero = s->zero_padd || (s->hash && s->zero && s->neg) ? 0 : s->zero;
 	ret = s->hash && nbr != 0 ? ft_strlen(str) + 2 : ft_strlen(str);
 	tmp = print_0x(&str, s, ret, nbr);
 	ret = manage_width(str, s) + tmp;

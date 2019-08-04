@@ -6,13 +6,13 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 14:28:47 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/03 18:21:09 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/04 12:20:22 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_count_digit_ll(long long n, int len)
+int			ft_count_digit_ll(__int128_t n, int len)
 {
 	while (n / 10)
 	{
@@ -22,7 +22,7 @@ int			ft_count_digit_ll(long long n, int len)
 	return (len);
 }
 
-char		*ft_itoa_ll(long long n)
+char		*ft_itoa_ll(__int128_t n)
 {
 	char	*result;
 	int		len;

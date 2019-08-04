@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 10:27:31 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/03 21:58:19 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/04 13:54:01 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int		print_string(va_list valist, t_flags *s)
 
 	str = va_arg(valist, char *);
 	if (!str)
-		str = s->dot && !s->zero_padd ? strdup("(null).") :
-			strdup("(null)");
+		str = s->dot && !s->zero_padd ? ft_strdup("(null).") :
+			ft_strdup("(null)");
 	else
 		str = ft_strndup(str, ft_strlen(str));
 	*str = s->dot && !s->zero_padd ? '\0' : *str;
