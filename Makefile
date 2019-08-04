@@ -6,7 +6,7 @@
 #    By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/16 11:34:51 by vhazelnu          #+#    #+#              #
-#    Updated: 2019/08/04 13:42:41 by vhazelnu         ###   ########.fr        #
+#    Updated: 2019/08/04 16:48:44 by vhazelnu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIB = -L libft/ -lft
 
 INCLUDES = -I ./includes -I libft/includes
 
-SRCS = ft_symbol.c ft_printf.c ft_number.c ft_conv_f.c ft_conv_x.c ft_conv_d.c ft_conv_p.c ft_conv_o.c ft_conv_u.c width_for_f.c \
+SRCS = ft_symbol.c ft_printf.c ft_number.c ft_conv_f.c ft_conv_x.c ft_conv_d.c ft_conv_p.c ft_conv_o.c ft_conv_u.c width_for_f.c ft_conv_b.c \
 		longadd.c longmulti.c decimal_part.c longdiv.c integer_part.c rounding_and_print.c calculate_decimal.c width.c find_conv_or_whitesp.c \
 		libft/ft_atoi.c libft/ft_atoi_base.c libft/ft_bzero.c libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_itoa_base.c \
 		libft/ft_itoa_ll.c libft/ft_memalloc.c libft/ft_memcpy.c libft/ft_memset.c libft/ft_power.c libft/ft_putchar.c libft/ft_putstr.c libft/ft_realloc.c \

@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 15:12:15 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/31 12:12:20 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/04 17:48:48 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		get_binary(double db, char **str, char **exp, char **mant)
 		j--;
 		i++;
 	}
+	(*str)[0] = (*str)[0] != '0' ? '1' : (*str)[0];
 	*exp = ft_strncpy(*exp, *str + 1, 11);
 	(*exp)[11] = '\0';
 	*mant = ft_strncpy(*mant, *str + 12, 52);
@@ -108,23 +109,21 @@ int		ft_conv_f(const char **format, va_list valist, t_flags *s)
 	int			ret;
 	t_f			f;
 
+	f.sign = 0;
 	f.db = s->bigl ? va_arg(valist, long double) :
 		(double)va_arg(valist, double);
-	if (f.db != f.db || f.db == (1.0 / 0.0) || f.db == -(1.0 / 0.0))
+	if (s->conv != 'b' &&
+		(f.db != f.db || f.db == (1.0 / 0.0) || f.db == -(1.0 / 0.0)))
 		return (is_nan_inf(F, f.db));
 	create_strcut(&f.exp, &f.mant, s->bigl);
 	if (s->bigl)
-	{
 		f.exp_i = get_binary_bigl(f.db, &f.binary, &f.exp, &f.mant);
-		f.sign = f.binary[48] == '1' ? -1 : 0;
-	}
 	else
-	{
 		f.exp_i = get_binary(f.db, &f.binary, &f.exp, &f.mant);
-		f.sign = f.binary[0] != '0' ? -1 : 0;
-	}
+	f.sign = s->bigl && f.binary[48] == '1' ? -1 : f.sign;
+	f.sign = !s->bigl && f.binary[0] == '1' ? -1 : f.sign;
 	f.isint = f.exp_i >= 0 ? 1 : 0;
-	ret = integer_part(f, s);
+	ret = s->conv != 'b' ? integer_part(f, s) : ft_conv_b(s, f);
 	(*F)++;
 	free(f.binary);
 	free(f.exp);

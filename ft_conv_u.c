@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 15:05:38 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/03 12:13:15 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/04 15:40:06 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int				ft_conv_u(const char **format, va_list valist, t_flags *s)
 	unsigned long long		nbr;
 
 	ret = 0;
-	if (s->l == 2)
+	if (s->l == 2 || s->conv == 'U')
 		nbr = (long long)va_arg(valist, long long);
 	else if (s->l == 1)
 		nbr = (unsigned long)va_arg(valist, unsigned long);

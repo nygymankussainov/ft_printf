@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:02:01 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/03 22:37:05 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/04 17:05:39 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct		s_flags
 	short			bigl;
 	short			h;
 	short			l;
+	short			m;
+	short			z;
 	short			zero;
 	short			pos;
 	short			neg;
@@ -80,5 +82,6 @@ int					get_width(char *str);
 void				longadd(char *s1, char *s2, char **res2);
 void				longmulti(char *a, const char *b, char **c);
 void				longdiv(char *number, int divisor, char **res);
+int					ft_conv_b(t_flags *s, t_f f);
 
 #endif

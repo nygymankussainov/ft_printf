@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:43:45 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/04 12:19:02 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/04 15:39:22 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ long long	get_nbr_d(const char **format, va_list valist, t_flags *s)
 	long long	nbr;
 
 	s->conv = **F;
-	if (s->l == 2)
+	if (s->l == 2 || s->conv == 'D')
 		nbr = (long long)va_arg(valist, long long);
 	else if (s->l == 1)
 		nbr = (long)va_arg(valist, long);

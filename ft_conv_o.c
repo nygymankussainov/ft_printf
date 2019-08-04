@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 14:51:47 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/04 12:33:47 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/04 15:39:55 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_conv_o(const char **format, va_list valist, t_flags *s)
 	unsigned long long		nbr;
 
 	ret = 0;
-	if (s->l == 2)
+	if (s->l == 2 || s->conv == 'O')
 		nbr = (long long)va_arg(valist, long long);
 	else if (s->l == 1)
 		nbr = (long)va_arg(valist, long);

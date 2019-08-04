@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:57:32 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/04 14:56:52 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/04 16:46:41 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,12 @@ void		ft_fill_struct(const char *format, int i, t_flags *s)
 		s->neg = str[i] == '-' ? 1 : s->neg;
 		s->pos = str[i] == '+' ? 1 : s->pos;
 		s->bigl = str[i] == 'L' ? 1 : s->bigl;
+		s->z = str[i] == 'z' ? 1 : s->z;
 		i++;
 	}
 	s->width += get_width(str);
+	s->m = flag_length(str, 'm');
+	s->z = s->m ? 0 : s->z;
 	s->l = flag_length(str, 'l');
 	s->h = flag_length(str, 'h');
 	free(str);
@@ -58,7 +61,7 @@ int			ft_conv(const char **format, va_list valist, t_flags *s)
 
 	ret = 0;
 	s->zero = s->neg && (**F == 'f' || **F == 'F') ? 0 : s->zero;
-	if (ft_strchr("diouxXpfF", **F) && *F)
+	if (ft_strchr("diouxXpfFDOUb", **F) && *F)
 		ret = ft_number(F, valist, s);
 	else if (ft_strchr("sc", **F) && **F)
 		ret = ft_symbol(F, valist, s);
@@ -89,7 +92,7 @@ int			ft_percent(const char **format, va_list valist)
 	find_whitesp(F, s);
 	s->whitesp = s->whitesp > 1 ? 1 : s->whitesp;
 	s->prec = 6;
-	while (ft_strchr(".-+#lLh0123456789", *(*F + i)) && *(F + i))
+	while (ft_strchr(".-+#lLh0123456789mz", *(*F + i)) && *(F + i))
 		i++;
 	if (i)
 		ft_fill_struct(*F, i, s);
