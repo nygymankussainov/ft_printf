@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:18:47 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/31 19:25:53 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/06 13:29:15 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	rounding(char **decimal, char **integer, int prec)
 
 	if (prec == 0 && (*decimal)[prec] > '5')
 		longadd(*integer, "1", integer);
-	if (prec <= ft_strlen(*decimal))
+	if (prec <= (int)ft_strlen(*decimal))
 	{
 		tmp = prec;
 		if ((*decimal)[prec] >= '5' && prec > 0)

@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 10:27:31 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/04 13:54:01 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/06 13:28:13 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int		ft_symbol(const char **format, va_list valist, t_flags *s)
 	char	*str;
 	char	sym;
 	int		ret;
-	int		tmp;
 
 	ret = 1;
 	s->conv = **F;

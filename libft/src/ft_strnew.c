@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhazelnu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 15:18:54 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/04/18 13:10:40 by vhazelnu         ###   ########.fr       */
+/*   Created: 2019/04/12 16:45:11 by vhazelnu          #+#    #+#             */
+/*   Updated: 2019/10/14 13:36:55 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isdigit(int c)
+char	*ft_strnew(size_t size)
 {
-	return (c >= '0' && c <= '9');
+	char	*s;
+
+	if ((size + 1 == 0) || !(s = ft_memalloc(size + 1)))
+		return (NULL);
+	return (s);
 }

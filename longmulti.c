@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 13:19:49 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/07/31 15:06:22 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/08/06 13:28:33 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ char	*operation(char *a, const char *b, char *c)
 
 void	longmulti(char *a, const char *b, char **res)
 {
-	int		len;
 	int		la;
 	int		lb;
 	char	*c;

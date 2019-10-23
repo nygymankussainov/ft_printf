@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 17:04:11 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/05/12 14:01:24 by vhazelnu         ###   ########.fr       */
+/*   Created: 2019/04/15 16:45:23 by vhazelnu          #+#    #+#             */
+/*   Updated: 2019/10/08 14:33:35 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	char	b;
+	char	*result;
 
-	b = (char)c;
-	while (*s != b && *s)
-		s++;
-	if (!*s && *s != b)
+	if (!s || (len + 1 == 0) || !len ||
+			!(result = ft_memalloc(len + 1)))
 		return (NULL);
-	return ((char *)s);
+	result = ft_strncpy(result, s + start, len);
+	return (result);
 }

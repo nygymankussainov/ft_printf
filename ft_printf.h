@@ -6,7 +6,7 @@
 /*   By: vhazelnu <vhazelnu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 11:02:01 by vhazelnu          #+#    #+#             */
-/*   Updated: 2019/08/04 17:05:39 by vhazelnu         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:21:20 by vhazelnu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <stdarg.h>
 # include <stdlib.h>
-# include "libft/libft.h"
+# include "libft.h"
 
 typedef struct		s_f
 {
