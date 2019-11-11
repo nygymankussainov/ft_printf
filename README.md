@@ -8,7 +8,7 @@ The b conversion prints out binary representation of double and long double valu
 
 Works with the folowing flags:
 
-L - long double;
+L - long double;\n
 z - prints sign;
 m - prints exponent;
 mm - prints mantissa;
