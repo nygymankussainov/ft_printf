@@ -1,6 +1,6 @@
 # ft_printf
 
-Re-coded printf C function
+Re-coded printf function
 
 # Bonus
 
@@ -12,3 +12,7 @@ L - long double;
 z - prints sign;
 m - prints exponent;
 mm - prints mantissa;
+
+Example:
+	ft_printf("%Lb", LDBL_MAX); Will print:
+	0.111111111111110.111111111111111111111111111111111111111111111111111111111111111
