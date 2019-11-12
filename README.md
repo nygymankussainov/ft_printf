@@ -18,7 +18,7 @@ Re-coded printf function
 **Conversions and flags that has been managed in ft_printf:** 
 
 - Conversions: `s`, `p`, `d`, `i`, `o`, `u`, `x`&`c` with flags:
-- `hh`, `h`, `l`, `ll`, `j`, & `z`.
+- `hh`, `h`, `l`, `ll`.
 - `%%`
 - flags: `#`, `0`, `-`, `+` & `space`
 - minimum field-width
@@ -26,7 +26,7 @@ Re-coded printf function
 
 **One more conversion as a bonus:**
 
-The b conversion prints out binary representation of double and long double values.
+The `b` conversion prints out a binary representation of double and long double values.
 
 Works with the folowing flags:
 
@@ -35,6 +35,6 @@ Works with the folowing flags:
 - `m` - prints exponent;
 - `mm` - prints mantissa;
 
-Example:
+**Example**
 	`ft_printf("%Lb", LDBL_MAX);` will print:
 	`0.111111111111110.111111111111111111111111111111111111111111111111111111111111111`
