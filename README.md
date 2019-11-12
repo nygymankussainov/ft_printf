@@ -5,7 +5,7 @@ Re-coded printf function
 	During this project I learnt about representation of floating point numbers in a computer
 	and how printf function works.
 
-* **Usage**
+# Usage
 
 	make
 	gcc <file.c> libftprintf.a libft/libft.a -I libft/ -I ./
@@ -15,7 +15,7 @@ Re-coded printf function
 		#include "ft_printf.h"
 	at the top of <file.c>
 
-* **Conversions and flags that has been managed in ft_printf:** 
+**Conversions and flags that has been managed in ft_printf:** 
 
 - Conversions: `s`, `p`, `d`, `i`, `o`, `u`, `x`&`c` with flags:
 - `hh`, `h`, `l`, `ll`, `j`, & `z`.
@@ -24,7 +24,7 @@ Re-coded printf function
 - minimum field-width
 - precision
 
-* **One more conversion as a bonus:**
+**One more conversion as a bonus:**
 
 The b conversion prints out binary representation of double and long double values.
 
