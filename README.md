@@ -36,5 +36,6 @@ Works with the folowing flags:
 - `mm` - prints mantissa;
 
 **Example**
+
 	`ft_printf("%Lb", LDBL_MAX);` will print:
 	`0.111111111111110.111111111111111111111111111111111111111111111111111111111111111`
