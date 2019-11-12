@@ -27,7 +27,6 @@ Re-coded printf function
 **One more conversion as a bonus:**
 
 The `b` conversion prints out a binary representation of double and long double values.
-
 Works with the folowing flags:
 
 - `L` - long double;
@@ -37,5 +36,5 @@ Works with the folowing flags:
 
 **Example**
 
-	`ft_printf("%Lb", LDBL_MAX);` will print:
-	`0.111111111111110.111111111111111111111111111111111111111111111111111111111111111`
+	ft_printf("%Lb", LDBL_MAX); will print:
+	0.111111111111110.111111111111111111111111111111111111111111111111111111111111111
