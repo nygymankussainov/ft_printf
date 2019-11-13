@@ -13,7 +13,7 @@ and how printf function works.
 You are supposed to call ft_printf function from <file.c>. In order to get rid of warnings
 prototype:
 
-		#include "ft_printf.h"
+	#include "ft_printf.h"
 
 at the top of <file.c>
 
