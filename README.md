@@ -11,8 +11,10 @@ and how printf function works.
 	gcc <file.c> libftprintf.a libft/libft.a -I libft/ -I ./
 
 You are supposed to call ft_printf function from <file.c>. In order to get rid of warnings
-prototype: 
+prototype:
+
 		#include "ft_printf.h"
+
 at the top of <file.c>
 
 **Conversions and flags that has been managed in ft_printf:** 
